@@ -1,0 +1,56 @@
+{
+  "Site": {
+    "tagline": "Crafting timeless spaces.",
+    "comingSoon": "Site is being prepared. Content will be editable from the Studio."
+  },
+  "Nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "Projects": {
+    "title": "Our Projects",
+    "subtitle": "Discover the spaces we craft.",
+    "all": "All",
+    "filterCategory": "Category",
+    "filterStatus": "Status",
+    "search": "Search",
+    "searchPlaceholder": "Search by name or location",
+    "apply": "Apply",
+    "reset": "Reset",
+    "empty": "No projects match your filters.",
+    "showing": "Showing {from}\u2013{to} of {total}",
+    "previous": "Previous",
+    "next": "Next",
+    "viewAll": "View all projects",
+    "details": "Details",
+    "overview": "Overview",
+    "amenities": "Amenities",
+    "floorplans": "Floorplans",
+    "location": "Location",
+    "specs": {
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "area": "Area",
+      "parking": "Parking"
+    },
+    "downloadBrochure": "Download brochure",
+    "inquire": "Inquire about this project",
+    "related": "More like this"
+  },
+  "Inquiry": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "subject": "Subject (optional)",
+    "message": "Message",
+    "submit": "Send inquiry",
+    "submitting": "Sending\u2026",
+    "successTitle": "Thank you.",
+    "successBody": "Your inquiry has been received. We'll be in touch shortly.",
+    "errorTitle": "Something went wrong.",
+    "errorBody": "Please try again or email us directly.",
+    "regarding": "Regarding"
+  }
+}

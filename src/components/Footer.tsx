@@ -15,104 +15,184 @@ export function Footer({ locale, settings, nav }: FooterProps) {
   const title = settings?.title || 'Tilal';
 
   const contactEmail = 'sales@tilalbinghattiresidences.com';
+  const year = new Date().getFullYear();
+
+  const legalLinks = [
+    { label: 'Privacy Policy', href: '#' },
+    { label: 'Terms of Service', href: '#' },
+    { label: 'Cookie Policy', href: '#' },
+    { label: 'Accessibility', href: '#' },
+  ];
 
   return (
     <footer className="bg-fg text-bg relative overflow-hidden">
-      {/* Main footer content */}
-      <div className="container pt-20 md:pt-28 pb-16">
-        {/* Top row — location + phone */}
-        <div className="flex items-baseline justify-between mb-14 md:mb-20">
-          <span className="label text-bg/40">— Dubai, UAE</span>
-          <span className="label text-bg/40 hidden md:inline">
-            Call: 800 15
-          </span>
+      {/* CTA Strip */}
+      <div className="border-b border-bg/10">
+        <div className="container py-10 md:py-14">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <p className="label text-gold mb-3">Ready to invest?</p>
+              <p className="font-display text-2xl md:text-3xl text-bg leading-tight">
+                Let&apos;s discuss your future residence.
+              </p>
+            </div>
+            <a
+              href={`mailto:${contactEmail}`}
+              className="inline-flex items-center gap-3 bg-gold text-fg px-8 py-4 text-sm font-medium tracking-wide hover:bg-gold-light transition-colors shrink-0"
+            >
+              Schedule a consultation
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="opacity-60">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+            </a>
+          </div>
         </div>
+      </div>
 
-        {/* Large brand mark */}
-        <p
-          className="font-display text-bg leading-none mb-16 md:mb-24"
-          style={{
-            fontSize: 'clamp(3.5rem, 12vw, 10rem)',
-            letterSpacing: '-0.04em',
-          }}
-        >
-          {title}<span className="text-gold">.</span>
-        </p>
+      {/* Main footer */}
+      <div className="container pt-16 md:pt-24 pb-12">
+        {/* Top: Brand + tagline */}
+        <div className="mb-14 md:mb-20">
+          <p
+            className="font-display text-bg leading-none mb-6"
+            style={{
+              fontSize: 'clamp(2.5rem, 8vw, 6rem)',
+              letterSpacing: '-0.03em',
+            }}
+          >
+            {title}<span className="text-gold">.</span>
+          </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <p className="text-bg/50 text-base md:text-lg max-w-md leading-relaxed">
+              A vision of modern luxury living in Dubai. Designed for lifestyle. Built for investment.
+            </p>
+            <div className="flex items-center gap-8 text-label text-bg/40">
+              <span>— Dubai, UAE</span>
+              <span className="hidden md:inline">Call: 800 15</span>
+            </div>
+          </div>
+        </div>
 
         {/* Divider */}
         <div className="rule mb-14 md:mb-20 bg-bg/10" />
 
-        {/* Content grid */}
+        {/* Links grid */}
         <div className="grid grid-cols-12 gap-x-6 gap-y-12">
-          {/* Brand column */}
-          <div className="col-span-12 md:col-span-5 lg:col-span-4">
-            <p className="label text-bg/40 mb-6">The Vision</p>
-            <p className="text-bg/60 text-lg leading-relaxed max-w-md mb-6">
-              A vision of modern luxury living in Dubai. Designed for lifestyle. Built for investment.
-            </p>
-            <p className="text-bg/40 text-sm leading-relaxed max-w-sm">
-              Strategically located in Dubai&apos;s fastest-growing corridor, redefining residential excellence.
-            </p>
+          {/* Explore — from Sanity nav columns */}
+          <div className="col-span-6 sm:col-span-4 lg:col-span-2">
+            <p className="label text-gold mb-6">Explore</p>
+            <ul className="space-y-3">
+              {nav?.footerColumns?.[0]?.links?.map((link, j) => (
+                <li key={`explore-${j}`}>
+                  <Link
+                    href={resolveLink(link, locale)}
+                    target={link.newTab ? '_blank' : undefined}
+                    rel={link.newTab ? 'noopener noreferrer' : undefined}
+                    className="text-bg/50 hover:text-bg transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )) || (
+                <>
+                  <li><span className="text-bg/50 text-sm">Projects</span></li>
+                  <li><span className="text-bg/50 text-sm">Amenities</span></li>
+                  <li><span className="text-bg/50 text-sm">Investment</span></li>
+                  <li><span className="text-bg/50 text-sm">Materials</span></li>
+                </>
+              )}
+            </ul>
           </div>
 
-          {/* Spacer on large screens */}
-          <div className="hidden lg:block lg:col-span-1" />
+          {/* Company */}
+          <div className="col-span-6 sm:col-span-4 lg:col-span-2">
+            <p className="label text-gold mb-6">Company</p>
+            <ul className="space-y-3">
+              {nav?.footerColumns?.[1]?.links?.map((link, j) => (
+                <li key={`company-${j}`}>
+                  <Link
+                    href={resolveLink(link, locale)}
+                    target={link.newTab ? '_blank' : undefined}
+                    rel={link.newTab ? 'noopener noreferrer' : undefined}
+                    className="text-bg/50 hover:text-bg transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )) || (
+                <>
+                  <li><span className="text-bg/50 text-sm">About</span></li>
+                  <li><span className="text-bg/50 text-sm">Contact</span></li>
+                  <li><span className="text-bg/50 text-sm">Careers</span></li>
+                  <li><span className="text-bg/50 text-sm">Press</span></li>
+                </>
+              )}
+            </ul>
+          </div>
 
-          {/* Links columns */}
-          <div className="col-span-12 md:col-span-7 lg:col-span-7">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-10">
-              {/* Navigation columns from Sanity */}
-              {nav?.footerColumns?.map((col, i) => (
-                <div key={`${col.title || 'col'}-${i}`}>
-                  {col.title && (
-                    <p className="label text-bg/40 mb-5">{col.title}</p>
-                  )}
-                  <ul className="space-y-3">
-                    {col.links?.map((link, j) => (
-                      <li key={`${link.label}-${j}`}>
-                        <Link
-                          href={resolveLink(link, locale)}
-                          target={link.newTab ? '_blank' : undefined}
-                          rel={link.newTab ? 'noopener noreferrer' : undefined}
-                          className="text-bg/50 hover:text-bg transition-colors text-sm link-underline"
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+          {/* Resources */}
+          <div className="col-span-6 sm:col-span-4 lg:col-span-2">
+            <p className="label text-gold mb-6">Resources</p>
+            <ul className="space-y-3">
+              <li><span className="text-bg/50 text-sm">Brochure</span></li>
+              <li><span className="text-bg/50 text-sm">Floor Plans</span></li>
+              <li><span className="text-bg/50 text-sm">Payment Plans</span></li>
+              <li><span className="text-bg/50 text-sm">FAQ</span></li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div className="col-span-6 sm:col-span-4 lg:col-span-2">
+            <p className="label text-gold mb-6">Legal</p>
+            <ul className="space-y-3">
+              {legalLinks.map((link) => (
+                <li key={link.label}>
+                  <span className="text-bg/50 text-sm cursor-default">{link.label}</span>
+                </li>
               ))}
+            </ul>
+          </div>
 
-              {/* Contact column */}
-              <div>
-                <p className="label text-bg/40 mb-5">Contact</p>
-                <ul className="space-y-4 text-sm">
-                  <li>
+          {/* Contact */}
+          <div className="col-span-12 sm:col-span-8 lg:col-span-4">
+            <p className="label text-gold mb-6">Contact</p>
+            <div className="space-y-5">
+              <a
+                href={`mailto:${contactEmail}`}
+                className="block text-bg hover:text-gold transition-colors text-lg"
+              >
+                {contactEmail}
+              </a>
+              {settings?.contactPhone && (
+                <a
+                  href={`tel:${settings.contactPhone.replace(/\s/g, '')}`}
+                  className="block text-bg/60 hover:text-gold transition-colors text-sm"
+                >
+                  {settings.contactPhone}
+                </a>
+              )}
+              {settings?.address && (
+                <p className="text-bg/40 text-sm leading-relaxed max-w-xs">
+                  {settings.address}
+                </p>
+              )}
+
+              {/* Social */}
+              {socialEntries.length > 0 && (
+                <div className="flex items-center gap-5 pt-3">
+                  {socialEntries.map(([key, url]) => (
                     <a
-                      href={`mailto:${contactEmail}`}
-                      className="text-bg/60 hover:text-gold transition-colors block"
+                      key={key}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-label text-bg/40 hover:text-gold transition-colors"
                     >
-                      {contactEmail}
+                      {key === 'x' ? 'X' : key === 'linkedin' ? 'LinkedIn' : key.charAt(0).toUpperCase() + key.slice(1)}
                     </a>
-                  </li>
-                  {settings?.contactPhone && (
-                    <li>
-                      <a
-                        href={`tel:${settings.contactPhone.replace(/\s/g, '')}`}
-                        className="text-bg/60 hover:text-gold transition-colors block"
-                      >
-                        {settings.contactPhone}
-                      </a>
-                    </li>
-                  )}
-                  {settings?.address && (
-                    <li className="text-bg/40 text-xs leading-relaxed pt-1">
-                      {settings.address}
-                    </li>
-                  )}
-                </ul>
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -120,32 +200,14 @@ export function Footer({ locale, settings, nav }: FooterProps) {
 
       {/* Bottom bar */}
       <div className="border-t border-bg/10">
-        <div className="container py-6 md:py-7">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            {/* Copyright */}
-            <p className="text-label text-bg/40">
-              {nav?.footerNote || `\u00a9 ${new Date().getFullYear()} ${title}. All rights reserved.`}
+        <div className="container py-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <p className="text-xs text-bg/30">
+              {nav?.footerNote || `\u00a9 ${year} ${title}. All rights reserved.`}
             </p>
-
-            {/* Social + legal */}
-            <div className="flex items-center gap-8">
-              {socialEntries.length > 0 && (
-                <ul className="flex items-center gap-5">
-                  {socialEntries.map(([key, url]) => (
-                    <li key={key}>
-                      <a
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-label text-bg/40 hover:text-gold transition-colors"
-                      >
-                        {key === 'x' ? 'X' : key === 'linkedin' ? 'LinkedIn' : key.charAt(0).toUpperCase() + key.slice(1)}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            <p className="text-xs text-bg/30">
+              Crafted with precision in Dubai
+            </p>
           </div>
         </div>
       </div>

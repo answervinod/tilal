@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { createClient } from '@supabase/supabase-js';
 import { inquirySchema } from '@/lib/inquirySchema';
 import { writeClient, hasWriteToken } from '../../../../sanity/lib/serverClient';
 
@@ -47,9 +48,17 @@ export async function POST(request: Request) {
 
       const created = await writeClient.create({
         _type: 'inquiry',
-        name: data.name,
-        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        workEmail: data.workEmail,
         phone: data.phone || undefined,
+        nationality: data.nationality,
+        occupation: data.occupation,
+        propertyType: data.propertyType,
+        unitType: data.unitType,
+        purpose: data.purpose,
+        timeline: data.timeline,
+        buyerType: data.buyerType,
         message: data.message,
         subject: data.subject || undefined,
         project: projectRef,
@@ -68,7 +77,38 @@ export async function POST(request: Request) {
     );
   }
 
-  // 2) Send notification email (also best-effort).
+  // 2) Write to Supabase (best-effort)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (supabaseUrl && supabaseKey) {
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    try {
+      await supabase.from('inquiries').insert([{
+        first_name: data.firstName,
+        last_name: data.lastName,
+        work_email: data.workEmail,
+        phone: data.phone,
+        nationality: data.nationality,
+        occupation: data.occupation,
+        property_type: data.propertyType,
+        unit_type: data.unitType,
+        purpose: data.purpose,
+        timeline: data.timeline,
+        buyer_type: data.buyerType,
+        message: data.message,
+        subject: data.subject,
+        locale: data.locale,
+        project_slug: data.projectSlug,
+        submitted_at: submittedAt
+      }]);
+    } catch (err) {
+      console.error('[inquiry] supabase write failed:', err);
+    }
+  } else {
+    console.warn('[inquiry] NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY not set.');
+  }
+
+  // 3) Send notification email (also best-effort).
   const resendKey = process.env.RESEND_API_KEY;
   const toEmail = process.env.INQUIRY_TO_EMAIL;
   if (resendKey && toEmail) {
@@ -84,12 +124,18 @@ export async function POST(request: Request) {
       await resend.emails.send({
         from: fromEmail,
         to: toEmail,
-        replyTo: data.email,
+        replyTo: data.workEmail,
         subject: subjectLine,
         text: [
-          `Name: ${data.name}`,
-          `Email: ${data.email}`,
+          `Name: ${data.firstName} ${data.lastName}`,
+          `Work Email: ${data.workEmail}`,
           data.phone ? `Phone: ${data.phone}` : null,
+          `Nationality: ${data.nationality}`,
+          `Occupation: ${data.occupation}`,
+          `Property: ${data.propertyType} - ${data.unitType}`,
+          `Purpose: ${data.purpose}`,
+          `Timeline: ${data.timeline}`,
+          `Buyer Type: ${data.buyerType}`,
           data.subject ? `Subject: ${data.subject}` : null,
           data.projectSlug ? `Project: ${data.projectSlug}` : null,
           `Locale: ${data.locale}`,
@@ -106,7 +152,7 @@ export async function POST(request: Request) {
     }
   } else {
     console.warn(
-      '[inquiry] RESEND_API_KEY / INQUIRY_TO_EMAIL not set \u2014 no notification email sent.'
+      '[inquiry] RESEND_API_KEY / INQUIRY_TO_EMAIL not set — no notification email sent.'
     );
   }
 

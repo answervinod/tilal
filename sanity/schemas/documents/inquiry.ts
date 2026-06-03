@@ -11,9 +11,17 @@ export const inquiry = defineType({
   // Inquiries are created via API. Hide the "create new" button in Studio.
   // (Enforced via desk structure / role permissions; this field-set is just for clarity.)
   fields: [
-    defineField({ name: 'name', title: 'Name', type: 'string', readOnly: true }),
-    defineField({ name: 'email', title: 'Email', type: 'string', readOnly: true }),
+    defineField({ name: 'firstName', title: 'First Name', type: 'string', readOnly: true }),
+    defineField({ name: 'lastName', title: 'Last Name', type: 'string', readOnly: true }),
+    defineField({ name: 'workEmail', title: 'Work Email', type: 'string', readOnly: true }),
     defineField({ name: 'phone', title: 'Phone', type: 'string', readOnly: true }),
+    defineField({ name: 'nationality', title: 'Nationality', type: 'string', readOnly: true }),
+    defineField({ name: 'occupation', title: 'Occupation', type: 'string', readOnly: true }),
+    defineField({ name: 'propertyType', title: 'Property Type', type: 'string', readOnly: true }),
+    defineField({ name: 'unitType', title: 'Unit Type', type: 'string', readOnly: true }),
+    defineField({ name: 'purpose', title: 'Purpose', type: 'string', readOnly: true }),
+    defineField({ name: 'timeline', title: 'Timeline', type: 'string', readOnly: true }),
+    defineField({ name: 'buyerType', title: 'Buyer Type', type: 'string', readOnly: true }),
     defineField({ name: 'message', title: 'Message', type: 'text', rows: 4, readOnly: true }),
     defineField({
       name: 'subject',

@@ -11,7 +11,20 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
   const formRef = useRef<HTMLFormElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
 
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    workEmail: '',
+    phone: '',
+    nationality: '',
+    occupation: '',
+    propertyType: 'Apartment',
+    unitType: '3 bedroom',
+    purpose: 'Self use',
+    timeline: 'Immediately',
+    buyerType: 'Cash buyer',
+    message: ''
+  });
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
@@ -37,10 +50,19 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    try {
+      await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, locale })
+      });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (err) {
+      console.error('Submission failed', err);
+    }
   };
 
   return (
@@ -68,38 +90,140 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
       <section className="container py-20 md:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الاسم الكامل' : 'Full Name'}</label>
-              <input
-                type="text"
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                placeholder={locale === 'ar' ? 'اسمك' : 'Your name'}
-              />
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الاسم الأول' : 'First Name'}</label>
+                <input
+                  type="text"
+                  required
+                  value={form.firstName}
+                  onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                />
+              </div>
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'اسم العائلة' : 'Last Name'}</label>
+                <input
+                  type="text"
+                  required
+                  value={form.lastName}
+                  onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                />
+              </div>
             </div>
-            <div>
-              <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'البريد الإلكتروني' : 'Email'}</label>
-              <input
-                type="email"
-                required
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                placeholder="your@email.com"
-              />
+
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'البريد الإلكتروني للعمل' : 'Work Email'}</label>
+                <input
+                  type="email"
+                  required
+                  value={form.workEmail}
+                  onChange={(e) => setForm({ ...form, workEmail: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                />
+              </div>
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الهاتف' : 'Phone'}</label>
+                <input
+                  type="tel"
+                  required
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                />
+              </div>
             </div>
-            <div>
-              <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الهاتف' : 'Phone'}</label>
-              <input
-                type="tel"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                placeholder="+971 ..."
-              />
+
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الجنسية' : 'Nationality'}</label>
+                <input
+                  type="text"
+                  required
+                  value={form.nationality}
+                  onChange={(e) => setForm({ ...form, nationality: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                />
+              </div>
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'المهنة' : 'Occupation'}</label>
+                <input
+                  type="text"
+                  required
+                  value={form.occupation}
+                  onChange={(e) => setForm({ ...form, occupation: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                />
+              </div>
             </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع العقار' : 'Property Type'}</label>
+                <select
+                  value={form.propertyType}
+                  onChange={(e) => setForm({ ...form, propertyType: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                >
+                  <option value="Apartment">Apartment</option>
+                  <option value="Villa">Villa</option>
+                </select>
+              </div>
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع الوحدة' : 'Unit Type'}</label>
+                <select
+                  value={form.unitType}
+                  onChange={(e) => setForm({ ...form, unitType: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                >
+                  <option value="3 bedroom">3 bedroom</option>
+                  <option value="4 bedroom">4 bedroom</option>
+                  <option value="5 bedroom">5 bedroom</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الغرض' : 'Purpose'}</label>
+                <select
+                  value={form.purpose}
+                  onChange={(e) => setForm({ ...form, purpose: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                >
+                  <option value="Self use">Self use</option>
+                  <option value="Investment">Investment</option>
+                </select>
+              </div>
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'متى ترغب في الشراء' : 'When wants to buy'}</label>
+                <select
+                  value={form.timeline}
+                  onChange={(e) => setForm({ ...form, timeline: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                >
+                  <option value="Immediately">Immediately</option>
+                  <option value="Less than 6 months">Less than 6 months</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع المشتري' : 'Buyer Type'}</label>
+                <select
+                  value={form.buyerType}
+                  onChange={(e) => setForm({ ...form, buyerType: e.target.value })}
+                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                >
+                  <option value="Cash buyer">Cash buyer</option>
+                  <option value="Mortgage buyer">Mortgage buyer</option>
+                </select>
+              </div>
+            </div>
+
             <div>
               <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الرسالة' : 'Message'}</label>
               <textarea

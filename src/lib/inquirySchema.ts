@@ -5,10 +5,18 @@ import { z } from 'zod';
  * Used on both the client (react-hook-form resolver) and the server (API route).
  */
 export const inquirySchema = z.object({
-  name: z.string().trim().min(2, 'Please enter your name').max(120),
-  email: z.string().trim().email('Please enter a valid email').max(160),
-  phone: z.string().trim().max(40).optional().or(z.literal('')),
-  message: z.string().trim().min(10, 'Please add a short message').max(3000),
+  firstName: z.string().trim().min(2, 'Please enter your first name').max(120),
+  lastName: z.string().trim().min(2, 'Please enter your last name').max(120),
+  workEmail: z.string().trim().email('Please enter a valid work email').max(160),
+  phone: z.string().trim().min(5, 'Please enter a valid phone number').max(40),
+  nationality: z.string().trim().min(2, 'Please enter your nationality').max(120),
+  occupation: z.string().trim().min(2, 'Please enter your occupation').max(120),
+  propertyType: z.enum(['Apartment', 'Villa']),
+  unitType: z.enum(['3 bedroom', '4 bedroom', '5 bedroom']),
+  purpose: z.enum(['Self use', 'Investment']),
+  timeline: z.enum(['Immediately', 'Less than 6 months']),
+  buyerType: z.enum(['Cash buyer', 'Mortgage buyer']),
+  message: z.string().trim().min(10, 'Please add a short message').max(3000).optional().or(z.literal('')),
   subject: z.string().trim().max(200).optional().or(z.literal('')),
   /** Slug of the related project (when inquiry came from a listing detail page). */
   projectSlug: z.string().trim().max(120).optional().or(z.literal('')),

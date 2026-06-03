@@ -27,9 +27,17 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
   } = useForm<InquiryInput>({
     resolver: zodResolver(inquirySchema),
     defaultValues: {
-      name: '',
-      email: '',
+      firstName: '',
+      lastName: '',
+      workEmail: '',
       phone: '',
+      nationality: '',
+      occupation: '',
+      propertyType: 'Apartment',
+      unitType: '3 bedroom',
+      purpose: 'Self use',
+      timeline: 'Immediately',
+      buyerType: 'Cash buyer',
       subject: defaultSubject || '',
       message: '',
       projectSlug: projectFromUrl,
@@ -59,9 +67,17 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
         return;
       }
       reset({
-        name: '',
-        email: '',
+        firstName: '',
+        lastName: '',
+        workEmail: '',
         phone: '',
+        nationality: '',
+        occupation: '',
+        propertyType: 'Apartment',
+        unitType: '3 bedroom',
+        purpose: 'Self use',
+        timeline: 'Immediately',
+        buyerType: 'Cash buyer',
         subject: defaultSubject || '',
         message: '',
         projectSlug: projectFromUrl,
@@ -109,36 +125,48 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
 
       <div className="grid sm:grid-cols-2 gap-5">
         <div>
-          <label className={labelCls} htmlFor="inq-name">
-            {t('name')}
+          <label className={labelCls} htmlFor="inq-firstName">
+            First Name
           </label>
           <input
-            id="inq-name"
+            id="inq-firstName"
             className={inputCls}
-            autoComplete="name"
-            {...register('name')}
+            autoComplete="given-name"
+            {...register('firstName')}
           />
-          {errors.name && <p className={errCls}>{errors.name.message}</p>}
+          {errors.firstName && <p className={errCls}>{errors.firstName.message}</p>}
         </div>
         <div>
-          <label className={labelCls} htmlFor="inq-email">
-            {t('email')}
+          <label className={labelCls} htmlFor="inq-lastName">
+            Last Name
           </label>
           <input
-            id="inq-email"
-            type="email"
+            id="inq-lastName"
             className={inputCls}
-            autoComplete="email"
-            {...register('email')}
+            autoComplete="family-name"
+            {...register('lastName')}
           />
-          {errors.email && <p className={errCls}>{errors.email.message}</p>}
+          {errors.lastName && <p className={errCls}>{errors.lastName.message}</p>}
         </div>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-5">
         <div>
+          <label className={labelCls} htmlFor="inq-workEmail">
+            Work Email
+          </label>
+          <input
+            id="inq-workEmail"
+            type="email"
+            className={inputCls}
+            autoComplete="email"
+            {...register('workEmail')}
+          />
+          {errors.workEmail && <p className={errCls}>{errors.workEmail.message}</p>}
+        </div>
+        <div>
           <label className={labelCls} htmlFor="inq-phone">
-            {t('phone')}
+            Phone Number
           </label>
           <input
             id="inq-phone"
@@ -146,6 +174,87 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
             autoComplete="tel"
             {...register('phone')}
           />
+          {errors.phone && <p className={errCls}>{errors.phone.message}</p>}
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label className={labelCls} htmlFor="inq-nationality">
+            Nationality
+          </label>
+          <input
+            id="inq-nationality"
+            className={inputCls}
+            {...register('nationality')}
+          />
+          {errors.nationality && <p className={errCls}>{errors.nationality.message}</p>}
+        </div>
+        <div>
+          <label className={labelCls} htmlFor="inq-occupation">
+            Occupation
+          </label>
+          <input
+            id="inq-occupation"
+            className={inputCls}
+            {...register('occupation')}
+          />
+          {errors.occupation && <p className={errCls}>{errors.occupation.message}</p>}
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label className={labelCls} htmlFor="inq-propertyType">
+            Property Type
+          </label>
+          <select id="inq-propertyType" className={inputCls} {...register('propertyType')}>
+            <option value="Apartment">Apartment</option>
+            <option value="Villa">Villa</option>
+          </select>
+        </div>
+        <div>
+          <label className={labelCls} htmlFor="inq-unitType">
+            Unit Type
+          </label>
+          <select id="inq-unitType" className={inputCls} {...register('unitType')}>
+            <option value="3 bedroom">3 bedroom</option>
+            <option value="4 bedroom">4 bedroom</option>
+            <option value="5 bedroom">5 bedroom</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label className={labelCls} htmlFor="inq-purpose">
+            Purpose
+          </label>
+          <select id="inq-purpose" className={inputCls} {...register('purpose')}>
+            <option value="Self use">Self use</option>
+            <option value="Investment">Investment</option>
+          </select>
+        </div>
+        <div>
+          <label className={labelCls} htmlFor="inq-timeline">
+            When wants to buy
+          </label>
+          <select id="inq-timeline" className={inputCls} {...register('timeline')}>
+            <option value="Immediately">Immediately</option>
+            <option value="Less than 6 months">Less than 6 months</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label className={labelCls} htmlFor="inq-buyerType">
+            Type Of Buyer
+          </label>
+          <select id="inq-buyerType" className={inputCls} {...register('buyerType')}>
+            <option value="Cash buyer">Cash buyer</option>
+            <option value="Mortgage buyer">Mortgage buyer</option>
+          </select>
         </div>
         <div>
           <label className={labelCls} htmlFor="inq-subject">

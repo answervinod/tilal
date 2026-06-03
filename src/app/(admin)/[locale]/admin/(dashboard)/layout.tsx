@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { SidebarProfile } from "@/components/admin/SidebarProfile";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -59,23 +60,7 @@ export default async function AdminRootLayout({
               </nav>
             </div>
 
-            {/* Bottom User Profile */}
-            <div className="mt-auto p-4 m-4 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between group cursor-pointer hover:bg-white/10 transition-colors">
-              <div className="flex items-center gap-3 overflow-hidden">
-                {session?.user?.image ? (
-                  <img src={session.user.image} alt="User" className="w-10 h-10 rounded-full bg-slate-800 shrink-0" />
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-blue-600/20 text-blue-500 flex items-center justify-center font-bold text-sm shrink-0 border border-blue-500/20">
-                    {session?.user?.name?.charAt(0) || 'A'}
-                  </div>
-                )}
-                <div className="min-w-0">
-                  <p className="text-sm text-white font-medium truncate">{session?.user?.name || 'Administrator'}</p>
-                  <p className="text-xs text-slate-500 truncate">{session?.user?.email || 'admin@tilal.com'}</p>
-                </div>
-              </div>
-              <svg className="w-4 h-4 text-slate-500 group-hover:text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
-            </div>
+            <SidebarProfile user={session?.user || null} />
           </aside>
 
           {/* Main Content Area */}

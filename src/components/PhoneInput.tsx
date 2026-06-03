@@ -96,12 +96,12 @@ export function PhoneInput({ value, onChange, error, id, variant = 'default' }: 
       {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute top-full left-0 mt-1 w-[300px] bg-white border border-neutral-200 shadow-xl rounded-md z-50 overflow-hidden">
-          <div className="max-h-60 overflow-y-auto py-1">
+          <div className="max-h-60 overflow-y-auto py-1 overscroll-contain">
             {countries.map((c) => (
               <button
                 key={c.code}
                 type="button"
-                className="w-full text-left px-4 py-2 text-sm hover:bg-slate-50 flex items-center gap-3"
+                className="w-full text-left px-4 py-3 text-sm hover:bg-slate-50 flex items-center gap-3 text-slate-800"
                 onClick={() => handleCountrySelect(c)}
               >
                 <span className="text-base w-6 text-center">{c.flag}</span>

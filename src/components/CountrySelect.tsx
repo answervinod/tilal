@@ -35,13 +35,16 @@ export function CountrySelect({ value, onChange, error, variant = 'default' }: C
         error ? 'border-red-500' : isOpen ? 'border-brand' : 'border-neutral-300'
       }`;
 
+  const selectedCountry = countries.find(c => c.name === value);
+
   return (
     <div className="relative" ref={wrapperRef}>
       <div 
         className={baseCls}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className={value ? 'text-slate-900' : 'text-slate-400'}>
+        <span className={`flex items-center gap-2 ${variant === 'transparent' ? 'text-fg' : value ? 'text-slate-900' : 'text-slate-400'}`}>
+          {selectedCountry && <span className="text-base">{selectedCountry.flag}</span>}
           {value || 'Select Nationality...'}
         </span>
         <svg className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180 text-brand' : 'text-slate-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,12 +63,12 @@ export function CountrySelect({ value, onChange, error, variant = 'default' }: C
               className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-brand"
             />
           </div>
-          <div className="max-h-60 overflow-y-auto">
+          <div className="max-h-60 overflow-y-auto overscroll-contain">
             {filtered.length > 0 ? filtered.map((c) => (
               <button
                 key={c.code}
                 type="button"
-                className="w-full text-left px-4 py-2 text-sm hover:bg-slate-50 flex items-center gap-3"
+                className="w-full text-left px-4 py-3 text-sm hover:bg-slate-50 flex items-center gap-3 text-slate-800"
                 onClick={() => {
                   onChange(c.name);
                   setIsOpen(false);

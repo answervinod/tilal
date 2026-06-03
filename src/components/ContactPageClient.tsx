@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import type { Locale } from '@/i18n/config';
 import Image from 'next/image';
 import { gsap } from 'gsap';
+import { CountrySelect } from '@/components/CountrySelect';
+import { PhoneInput } from '@/components/PhoneInput';
 
 export function ContactPageClient({ locale }: { locale: Locale }) {
   const heroRef = useRef<HTMLElement>(null);
@@ -18,7 +20,6 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
     phone: '',
     nationality: '',
     occupation: '',
-    propertyType: 'Apartment',
     unitType: '4BR TH (mid): from 4,200,000 AED',
     purpose: 'Self use',
     timeline: 'Immediately',
@@ -66,7 +67,6 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
         phone: '',
         nationality: '',
         occupation: '',
-        propertyType: 'Apartment',
         unitType: '4BR TH (mid): from 4,200,000 AED',
         purpose: 'Self use',
         timeline: 'Immediately',
@@ -140,12 +140,10 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               </div>
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الهاتف' : 'Phone'}</label>
-                <input
-                  type="tel"
-                  required
+                <PhoneInput
                   value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                  onChange={(val) => setForm({ ...form, phone: val })}
+                  variant="transparent"
                 />
               </div>
             </div>
@@ -153,12 +151,10 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الجنسية' : 'Nationality'}</label>
-                <input
-                  type="text"
-                  required
+                <CountrySelect
                   value={form.nationality}
-                  onChange={(e) => setForm({ ...form, nationality: e.target.value })}
-                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
+                  onChange={(val) => setForm({ ...form, nationality: val })}
+                  variant="transparent"
                 />
               </div>
               <div>
@@ -174,17 +170,6 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
             </div>
 
             <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع العقار' : 'Property Type'}</label>
-                <select
-                  value={form.propertyType}
-                  onChange={(e) => setForm({ ...form, propertyType: e.target.value })}
-                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                >
-                  <option value="Apartment">Apartment</option>
-                  <option value="Villa">Villa</option>
-                </select>
-              </div>
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع الوحدة' : 'Unit Type'}</label>
                 <select
@@ -215,6 +200,9 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
                   <option value="Investment">Investment</option>
                 </select>
               </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'متى ترغب في الشراء' : 'When wants to buy'}</label>
                 <select
@@ -256,7 +244,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               type="submit"
               className="text-sm font-medium tracking-wide uppercase px-8 py-4 bg-fg text-bg hover:bg-gold hover:text-fg transition-all duration-300"
             >
-              {submitted ? (locale === 'ar' ? 'تم الإرسال!' : 'Message Sent!') : (locale === 'ar' ? 'إرسال' : 'Submit')}
+              {submitted ? (locale === 'ar' ? 'شكراً لاتصالك بتلال بن غاطي ريزيدنسز.' : 'Thank you for contacting Tilal Binghatti Residences.') : (locale === 'ar' ? 'إرسال' : 'Submit')}
             </button>
           </form>
 

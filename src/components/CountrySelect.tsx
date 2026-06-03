@@ -7,9 +7,10 @@ interface CountrySelectProps {
   value: string;
   onChange: (value: string) => void;
   error?: string;
+  variant?: 'default' | 'transparent';
 }
 
-export function CountrySelect({ value, onChange, error }: CountrySelectProps) {
+export function CountrySelect({ value, onChange, error, variant = 'default' }: CountrySelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -28,12 +29,16 @@ export function CountrySelect({ value, onChange, error }: CountrySelectProps) {
     c.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const baseCls = variant === 'transparent'
+    ? 'w-full bg-transparent border-b border-fg/15 py-3 text-fg flex items-center justify-between cursor-pointer transition-colors focus:border-gold focus:outline-none'
+    : `w-full bg-white border px-4 py-3 text-sm flex items-center justify-between cursor-pointer transition-colors ${
+        error ? 'border-red-500' : isOpen ? 'border-brand' : 'border-neutral-300'
+      }`;
+
   return (
     <div className="relative" ref={wrapperRef}>
       <div 
-        className={`w-full bg-white border px-4 py-3 text-sm flex items-center justify-between cursor-pointer transition-colors ${
-          error ? 'border-red-500' : isOpen ? 'border-brand' : 'border-neutral-300'
-        }`}
+        className={baseCls}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className={value ? 'text-slate-900' : 'text-slate-400'}>

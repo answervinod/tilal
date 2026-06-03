@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { inquirySchema, type InquiryInput } from '@/lib/inquirySchema';
 import type { Locale } from '@/i18n/config';
+import { CountrySelect } from '@/components/CountrySelect';
+import { PhoneInput } from '@/components/PhoneInput';
 
 interface Props {
   locale: Locale;
@@ -24,6 +26,7 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
     formState: { errors, isSubmitting, isSubmitSuccessful },
     reset,
     setValue,
+    control,
   } = useForm<InquiryInput>({
     resolver: zodResolver(inquirySchema),
     defaultValues: {
@@ -33,7 +36,6 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
       phone: '',
       nationality: '',
       occupation: '',
-      propertyType: 'Apartment',
       unitType: '4BR TH (mid): from 4,200,000 AED',
       purpose: 'Self use',
       timeline: 'Immediately',
@@ -73,7 +75,6 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
         phone: '',
         nationality: '',
         occupation: '',
-        propertyType: 'Apartment',
         unitType: '4BR TH (mid): from 4,200,000 AED',
         purpose: 'Self use',
         timeline: 'Immediately',
@@ -168,11 +169,17 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
           <label className={labelCls} htmlFor="inq-phone">
             Phone Number
           </label>
-          <input
-            id="inq-phone"
-            className={inputCls}
-            autoComplete="tel"
-            {...register('phone')}
+          <Controller
+            control={control}
+            name="phone"
+            render={({ field: { onChange, value } }) => (
+              <PhoneInput
+                id="inq-phone"
+                value={value}
+                onChange={onChange}
+                error={errors.phone?.message}
+              />
+            )}
           />
           {errors.phone && <p className={errCls}>{errors.phone.message}</p>}
         </div>
@@ -180,13 +187,19 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
 
       <div className="grid sm:grid-cols-2 gap-5">
         <div>
-          <label className={labelCls} htmlFor="inq-nationality">
+          <label className={labelCls}>
             Nationality
           </label>
-          <input
-            id="inq-nationality"
-            className={inputCls}
-            {...register('nationality')}
+          <Controller
+            control={control}
+            name="nationality"
+            render={({ field: { onChange, value } }) => (
+              <CountrySelect
+                value={value}
+                onChange={onChange}
+                error={errors.nationality?.message}
+              />
+            )}
           />
           {errors.nationality && <p className={errCls}>{errors.nationality.message}</p>}
         </div>
@@ -205,15 +218,6 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
 
       <div className="grid sm:grid-cols-2 gap-5">
         <div>
-          <label className={labelCls} htmlFor="inq-propertyType">
-            Property Type
-          </label>
-          <select id="inq-propertyType" className={inputCls} {...register('propertyType')}>
-            <option value="Apartment">Apartment</option>
-            <option value="Villa">Villa</option>
-          </select>
-        </div>
-        <div>
           <label className={labelCls} htmlFor="inq-unitType">
             Unit Type
           </label>
@@ -227,9 +231,6 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
             <option value="Mansion: for 150,000,000 AED">Mansion: for 150,000,000 AED</option>
           </select>
         </div>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-5">
         <div>
           <label className={labelCls} htmlFor="inq-purpose">
             Purpose
@@ -239,6 +240,9 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
             <option value="Investment">Investment</option>
           </select>
         </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-5">
         <div>
           <label className={labelCls} htmlFor="inq-timeline">
             When wants to buy
@@ -248,9 +252,6 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
             <option value="Less than 6 months">Less than 6 months</option>
           </select>
         </div>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-5">
         <div>
           <label className={labelCls} htmlFor="inq-buyerType">
             Type Of Buyer
@@ -260,6 +261,9 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
             <option value="Mortgage buyer">Mortgage buyer</option>
           </select>
         </div>
+      </div>
+
+      <div className="grid sm:grid-cols-2 gap-5">
         <div>
           <label className={labelCls} htmlFor="inq-subject">
             {t('subject')}

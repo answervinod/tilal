@@ -11,7 +11,6 @@ export const inquirySchema = z.object({
   phone: z.string().trim().min(5, 'Please enter a valid phone number').max(40),
   nationality: z.string().trim().min(2, 'Please enter your nationality').max(120),
   occupation: z.string().trim().min(2, 'Please enter your occupation').max(120),
-  propertyType: z.enum(['Apartment', 'Villa']),
   unitType: z.enum([
     '4BR TH (mid): from 4,200,000 AED',
     '5BR TH (end/corn): from 5,100,000 AED',

@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { redirect } from 'next/navigation';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 import { DashboardClient } from '@/components/admin/DashboardClient';
 
 export const dynamic = 'force-dynamic';

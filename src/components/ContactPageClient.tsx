@@ -59,6 +59,20 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
         body: JSON.stringify({ ...form, locale })
       });
       setSubmitted(true);
+      setForm({
+        firstName: '',
+        lastName: '',
+        workEmail: '',
+        phone: '',
+        nationality: '',
+        occupation: '',
+        propertyType: 'Apartment',
+        unitType: '4BR TH (mid): from 4,200,000 AED',
+        purpose: 'Self use',
+        timeline: 'Immediately',
+        buyerType: 'Cash buyer',
+        message: ''
+      });
       setTimeout(() => setSubmitted(false), 3000);
     } catch (err) {
       console.error('Submission failed', err);
@@ -242,7 +256,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               type="submit"
               className="text-sm font-medium tracking-wide uppercase px-8 py-4 bg-fg text-bg hover:bg-gold hover:text-fg transition-all duration-300"
             >
-              {submitted ? (locale === 'ar' ? 'تم الإرسال!' : 'Message Sent!') : (locale === 'ar' ? 'احجز جولة خاصة' : 'Book a Private Viewing')}
+              {submitted ? (locale === 'ar' ? 'تم الإرسال!' : 'Message Sent!') : (locale === 'ar' ? 'إرسال' : 'Submit')}
             </button>
           </form>
 

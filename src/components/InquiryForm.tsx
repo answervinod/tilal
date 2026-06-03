@@ -74,7 +74,7 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
         nationality: '',
         occupation: '',
         propertyType: 'Apartment',
-        unitType: '3 bedroom',
+        unitType: '4BR TH (mid): from 4,200,000 AED',
         purpose: 'Self use',
         timeline: 'Immediately',
         buyerType: 'Cash buyer',

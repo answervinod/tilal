@@ -19,7 +19,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
     nationality: '',
     occupation: '',
     propertyType: 'Apartment',
-    unitType: '3 bedroom',
+    unitType: '4BR TH (mid): from 4,200,000 AED',
     purpose: 'Self use',
     timeline: 'Immediately',
     buyerType: 'Cash buyer',
@@ -178,9 +178,13 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
                   onChange={(e) => setForm({ ...form, unitType: e.target.value })}
                   className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
                 >
-                  <option value="3 bedroom">3 bedroom</option>
-                  <option value="4 bedroom">4 bedroom</option>
-                  <option value="5 bedroom">5 bedroom</option>
+                  <option value="4BR TH (mid): from 4,200,000 AED">4BR TH (mid): from 4,200,000 AED</option>
+                  <option value="5BR TH (end/corn): from 5,100,000 AED">5BR TH (end/corn): from 5,100,000 AED</option>
+                  <option value="5BR TH (grand): from 6,250,000 AED">5BR TH (grand): from 6,250,000 AED</option>
+                  <option value="6BR Villa (twin): from 6,900,000 AED">6BR Villa (twin): from 6,900,000 AED</option>
+                  <option value="6BR Villa: from 16,000,000 AED">6BR Villa: from 16,000,000 AED</option>
+                  <option value="7BR Villa: from 49,000,000 AED">7BR Villa: from 49,000,000 AED</option>
+                  <option value="Mansion: for 150,000,000 AED">Mansion: for 150,000,000 AED</option>
                 </select>
               </div>
             </div>

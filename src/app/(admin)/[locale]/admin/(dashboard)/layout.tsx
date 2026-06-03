@@ -46,18 +46,6 @@ export default async function AdminRootLayout({
                   Inquiries
                 </a>
               </nav>
-
-              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-3 px-3">External Links</div>
-              <nav className="space-y-1">
-                <a href="/studio" target="_blank" className="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:bg-white/5 hover:text-white rounded-xl text-sm font-medium transition-all group">
-                  <svg className="w-5 h-5 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-                  Sanity Studio
-                </a>
-                <a href="/" target="_blank" className="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:bg-white/5 hover:text-white rounded-xl text-sm font-medium transition-all group">
-                  <svg className="w-5 h-5 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                  View Live Site
-                </a>
-              </nav>
             </div>
 
             <SidebarProfile user={session?.user || null} />

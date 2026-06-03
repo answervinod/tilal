@@ -17,6 +17,7 @@ interface HeaderProps {
 
 export function Header({ locale, settings, nav }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const logoSrc = imageUrl(settings?.logo, 240);
   const siteTitle = settings?.title || 'Tilal';
@@ -28,58 +29,111 @@ export function Header({ locale, settings, nav }: HeaderProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  return (
-    <header
-      ref={headerRef}
-      className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 ${
-        scrolled
-          ? 'bg-fg/90 backdrop-blur-xl border-b border-white/10'
-          : 'bg-fg/40 backdrop-blur-md'
-      }`}
-    >
-      <div className="container flex items-center justify-between h-24">
-        {/* Logo */}
-        <Link href={`/${locale}`} className="flex items-center gap-3 group">
-          {logoSrc ? (
-            <Image
-              src={logoSrc}
-              alt={siteTitle}
-              width={40}
-              height={40}
-              className="object-contain brightness-0 invert"
-            />
-          ) : (
-            <span className="font-display text-2xl tracking-tight text-bg">
-              {siteTitle}
-            </span>
-          )}
-        </Link>
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [mobileMenuOpen]);
 
-        {/* Nav */}
-        <nav className="hidden md:flex items-center gap-10">
+  return (
+    <>
+      <header
+        ref={headerRef}
+        className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 ${
+          scrolled || mobileMenuOpen
+            ? 'bg-fg/90 backdrop-blur-xl border-b border-white/10'
+            : 'bg-fg/40 backdrop-blur-md'
+        }`}
+      >
+        <div className="container flex items-center justify-between h-24">
+          {/* Logo */}
+          <Link href={`/${locale}`} className="flex items-center gap-3 group" onClick={() => setMobileMenuOpen(false)}>
+            {logoSrc ? (
+              <Image
+                src={logoSrc}
+                alt={siteTitle}
+                width={40}
+                height={40}
+                className="object-contain brightness-0 invert"
+              />
+            ) : (
+              <span className="font-display text-2xl tracking-tight text-bg">
+                {siteTitle}
+              </span>
+            )}
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-10">
+            {links.map((link, i) => (
+              <Link
+                key={`nav-${link.label}-${i}`}
+                href={resolveLink(link, locale)}
+                className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase"
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right */}
+          <div className="flex items-center gap-6">
+            <LocaleSwitcher current={locale} light={true} />
+            <Link
+              href={`/${locale}/contact`}
+              className="hidden md:inline-flex text-sm font-medium tracking-wide uppercase px-6 py-3 bg-gold text-fg hover:bg-white transition-all duration-300"
+            >
+              Contact
+            </Link>
+            
+            {/* Hamburger Button */}
+            <button 
+              className="md:hidden text-bg p-2 focus:outline-none"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`fixed inset-0 z-[90] bg-fg/95 backdrop-blur-xl transition-all duration-500 md:hidden flex flex-col justify-center items-center ${
+          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <nav className="flex flex-col items-center gap-8">
           {links.map((link, i) => (
             <Link
-              key={`nav-${link.label}-${i}`}
+              key={`mobile-nav-${link.label}-${i}`}
               href={resolveLink(link, locale)}
-              className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-2xl font-display tracking-wide text-bg hover:text-gold transition-colors duration-300 uppercase"
             >
               {link.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
             </Link>
           ))}
-        </nav>
-
-        {/* Right */}
-        <div className="flex items-center gap-6">
-          <LocaleSwitcher current={locale} light={true} />
           <Link
             href={`/${locale}/contact`}
-            className="hidden md:inline-flex text-sm font-medium tracking-wide uppercase px-6 py-3 bg-gold text-fg hover:bg-white transition-all duration-300"
+            onClick={() => setMobileMenuOpen(false)}
+            className="mt-4 text-sm font-medium tracking-wide uppercase px-8 py-4 bg-gold text-fg hover:bg-white transition-all duration-300"
           >
             Contact
           </Link>
-        </div>
+        </nav>
       </div>
-    </header>
+    </>
   );
 }

@@ -83,7 +83,7 @@ export async function POST(request: Request) {
   if (supabaseUrl && supabaseKey) {
     const supabase = createClient(supabaseUrl, supabaseKey);
     try {
-      await supabase.from('inquiries').insert([{
+      const { error: supabaseError } = await supabase.from('inquiries').insert([{
         first_name: data.firstName,
         last_name: data.lastName,
         work_email: data.workEmail,
@@ -101,8 +101,11 @@ export async function POST(request: Request) {
         project_slug: data.projectSlug,
         submitted_at: submittedAt
       }]);
+      if (supabaseError) {
+        console.error('[inquiry] supabase insert returned error:', supabaseError);
+      }
     } catch (err) {
-      console.error('[inquiry] supabase write failed:', err);
+      console.error('[inquiry] supabase write exception:', err);
     }
   } else {
     console.warn('[inquiry] NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY not set.');

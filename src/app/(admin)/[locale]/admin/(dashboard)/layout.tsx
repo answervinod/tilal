@@ -1,6 +1,10 @@
 import '../../../globals.css';
 import type { Metadata } from 'next';
 
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+
 export const metadata: Metadata = {
   title: 'Admin Dashboard \u2014 Tilal',
   description: 'Internal SAAS Dashboard for Tilal Inquiries',
@@ -14,8 +18,8 @@ export default function AdminRootLayout({
   params: { locale: string };
 }) {
   return (
-    <html lang={params.locale}>
-      <body className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans selection:bg-brand/30">
+    <html lang={params.locale} className={inter.variable}>
+      <body className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans cursor-auto selection:bg-brand/30" style={{ fontFamily: 'var(--font-inter)' }}>
         <div className="flex min-h-screen">
           {/* Premium Dark Sidebar */}
           <aside className="w-[280px] bg-[#0B1120] border-r border-white/5 hidden md:flex flex-col text-slate-300 shadow-2xl z-20 relative">

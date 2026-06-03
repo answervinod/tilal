@@ -1,27 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
 import { redirect } from 'next/navigation';
 import { ExportButton } from '@/components/admin/ExportButton';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 
 export const dynamic = 'force-dynamic';
 
-export default async function AdminDashboard({ searchParams }: { searchParams: { key?: string } }) {
-  const adminPassword = process.env.ADMIN_PASSWORD;
+export default async function AdminDashboard() {
+  const session = await getServerSession(authOptions);
   
-  if (adminPassword && searchParams.key !== adminPassword) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <div className="w-full max-w-md p-8 bg-white shadow-xl rounded-2xl text-center border border-gray-100">
-          <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
-          <p className="text-gray-500 mb-6">You need a valid access key to view this dashboard.</p>
-          <div className="text-left bg-gray-50 p-4 rounded-lg text-sm text-gray-600">
-            Append <code className="font-mono text-black bg-gray-200 px-1 py-0.5 rounded">?key=YOUR_PASSWORD</code> to the URL.
-          </div>
-        </div>
-      </div>
-    );
+  if (!session) {
+    redirect('/en/admin/login');
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

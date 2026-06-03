@@ -63,7 +63,7 @@ export function CountrySelect({ value, onChange, error, variant = 'default' }: C
               className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-brand"
             />
           </div>
-          <div className="max-h-60 overflow-y-auto overscroll-contain">
+          <div className="max-h-60 overflow-y-auto overscroll-contain" data-lenis-prevent="true">
             {filtered.length > 0 ? filtered.map((c) => (
               <button
                 key={c.code}

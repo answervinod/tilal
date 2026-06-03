@@ -104,7 +104,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
       <section className="container py-20 md:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الاسم الأول' : 'First Name'}</label>
                 <input
@@ -127,7 +127,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'البريد الإلكتروني للعمل' : 'Work Email'}</label>
                 <input
@@ -148,7 +148,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الجنسية' : 'Nationality'}</label>
                 <CountrySelect
@@ -169,7 +169,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع الوحدة' : 'Unit Type'}</label>
                 <select
@@ -188,7 +188,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الغرض' : 'Purpose'}</label>
                 <select
@@ -202,7 +202,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'متى ترغب في الشراء' : 'When wants to buy'}</label>
                 <select
@@ -216,7 +216,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع المشتري' : 'Buyer Type'}</label>
                 <select

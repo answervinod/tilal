@@ -96,7 +96,7 @@ export function PhoneInput({ value, onChange, error, id, variant = 'default' }: 
       {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute top-full left-0 mt-1 w-[300px] bg-white border border-neutral-200 shadow-xl rounded-md z-50 overflow-hidden">
-          <div className="max-h-60 overflow-y-auto py-1 overscroll-contain">
+          <div className="max-h-60 overflow-y-auto py-1 overscroll-contain" data-lenis-prevent="true">
             {countries.map((c) => (
               <button
                 key={c.code}

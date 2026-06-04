@@ -51,6 +51,38 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
     return () => ctx.revert();
   }, []);
 
+  // Calendly Widget Initialization
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = 'https://assets.calendly.com/assets/external/widget.css';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    script.onload = () => {
+      if ((window as any).Calendly) {
+        (window as any).Calendly.initBadgeWidget({
+          url: 'https://calendly.com/maitysabuj939/30min',
+          text: locale === 'ar' ? 'حدد موعداً معي' : 'Schedule time with me',
+          color: '#c9a96e', // Tilal Gold
+          textColor: '#ffffff',
+          branding: true,
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      if ((window as any).Calendly) {
+        (window as any).Calendly.destroyBadgeWidget();
+      }
+      if (document.head.contains(link)) document.head.removeChild(link);
+      if (document.body.contains(script)) document.body.removeChild(script);
+    };
+  }, [locale]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {

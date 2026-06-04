@@ -9,6 +9,7 @@ export function DashboardClient({ initialInquiries }: { initialInquiries: any[] 
   const [filterType, setFilterType] = useState<string>('All');
   const [selectedInquiry, setSelectedInquiry] = useState<any | null>(null);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   const filteredInquiries = useMemo(() => {
     let result = inquiries;
@@ -45,9 +46,35 @@ export function DashboardClient({ initialInquiries }: { initialInquiries: any[] 
       if (!res.ok) throw new Error('Failed to delete');
       
       setInquiries(prev => prev.filter(inq => inq.id !== id));
+      setSelectedIds(prev => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
     } catch (err) {
       console.error(err);
       alert('Failed to delete inquiry.');
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (!window.confirm(`Are you sure you want to delete ${selectedIds.size} inquiries? This action cannot be undone.`)) return;
+    
+    try {
+      // Use Promise.all to delete all selected items
+      const deletePromises = Array.from(selectedIds).map(id => 
+        fetch(`/api/inquiry/${id}`, { method: 'DELETE' }).then(res => {
+          if (!res.ok) throw new Error('Failed to delete ' + id);
+        })
+      );
+      
+      await Promise.all(deletePromises);
+      
+      setInquiries(prev => prev.filter(inq => !selectedIds.has(inq.id)));
+      setSelectedIds(new Set());
+    } catch (err) {
+      console.error(err);
+      alert('Failed to delete one or more inquiries.');
     }
   };
 
@@ -98,7 +125,18 @@ export function DashboardClient({ initialInquiries }: { initialInquiries: any[] 
             )}
           </div>
           
-          <ExportButton data={filteredInquiries} />
+          <div className="flex items-center gap-2">
+            {selectedIds.size > 0 && (
+              <button 
+                onClick={handleBulkDelete}
+                className="flex items-center gap-2 px-3 py-2 bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 rounded-lg text-sm font-medium transition-colors shadow-sm"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                Delete Selected ({selectedIds.size})
+              </button>
+            )}
+            <ExportButton data={filteredInquiries} />
+          </div>
         </div>
 
         {/* Data Table Container */}
@@ -107,6 +145,20 @@ export function DashboardClient({ initialInquiries }: { initialInquiries: any[] 
             <table className="w-full text-sm text-left">
               <thead className="text-[11px] text-slate-500 font-medium border-b border-slate-200 bg-white">
                 <tr>
+                  <th className="px-4 py-4 w-10">
+                    <input 
+                      type="checkbox" 
+                      className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                      checked={filteredInquiries.length > 0 && selectedIds.size === filteredInquiries.length}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedIds(new Set(filteredInquiries.map(i => i.id)));
+                        } else {
+                          setSelectedIds(new Set());
+                        }
+                      }}
+                    />
+                  </th>
                   <th className="px-6 py-4 font-medium">Client Name</th>
                   <th className="px-6 py-4 font-medium">Contact</th>
                   <th className="px-6 py-4 font-medium">Property Details</th>
@@ -122,7 +174,20 @@ export function DashboardClient({ initialInquiries }: { initialInquiries: any[] 
                   const color = colors[index % colors.length];
                   
                   return (
-                    <tr key={inq.id} className="hover:bg-slate-50/50 transition-colors group">
+                    <tr key={inq.id} className={`hover:bg-slate-50/50 transition-colors group ${selectedIds.has(inq.id) ? 'bg-blue-50/30' : ''}`}>
+                      <td className="px-4 py-4 whitespace-nowrap">
+                        <input 
+                          type="checkbox"
+                          className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                          checked={selectedIds.has(inq.id)}
+                          onChange={(e) => {
+                            const next = new Set(selectedIds);
+                            if (e.target.checked) next.add(inq.id);
+                            else next.delete(inq.id);
+                            setSelectedIds(next);
+                          }}
+                        />
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
                           <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${color}`}>

@@ -21,7 +21,6 @@ export function Footer({ locale, settings, nav }: FooterProps) {
     { label: 'Privacy Policy', href: '#' },
     { label: 'Terms of Service', href: '#' },
     { label: 'Cookie Policy', href: '#' },
-    { label: 'Accessibility', href: '#' },
   ];
 
   return (
@@ -68,7 +67,7 @@ export function Footer({ locale, settings, nav }: FooterProps) {
             </p>
             <div className="flex items-center gap-8 text-label text-bg/40">
               <span>— Dubai, UAE</span>
-              <span className="hidden md:inline">Call: 800 15</span>
+              <span className="hidden md:inline">Call: +971 52 675 9498</span>
             </div>
           </div>
         </div>
@@ -98,7 +97,6 @@ export function Footer({ locale, settings, nav }: FooterProps) {
                   <li><span className="text-bg/50 text-sm">Projects</span></li>
                   <li><span className="text-bg/50 text-sm">Amenities</span></li>
                   <li><span className="text-bg/50 text-sm">Investment</span></li>
-                  <li><span className="text-bg/50 text-sm">Materials</span></li>
                 </>
               )}
             </ul>
@@ -123,8 +121,6 @@ export function Footer({ locale, settings, nav }: FooterProps) {
                 <>
                   <li><span className="text-bg/50 text-sm">About</span></li>
                   <li><span className="text-bg/50 text-sm">Contact</span></li>
-                  <li><span className="text-bg/50 text-sm">Careers</span></li>
-                  <li><span className="text-bg/50 text-sm">Press</span></li>
                 </>
               )}
             </ul>
@@ -135,9 +131,7 @@ export function Footer({ locale, settings, nav }: FooterProps) {
             <p className="label text-gold mb-6">Resources</p>
             <ul className="space-y-3">
               <li><span className="text-bg/50 text-sm">Brochure</span></li>
-              <li><span className="text-bg/50 text-sm">Floor Plans</span></li>
               <li><span className="text-bg/50 text-sm">Payment Plans</span></li>
-              <li><span className="text-bg/50 text-sm">FAQ</span></li>
             </ul>
           </div>
 

@@ -65,7 +65,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
       if ((window as any).Calendly) {
         (window as any).Calendly.initBadgeWidget({
           url: 'https://calendly.com/maitysabuj939/30min',
-          text: locale === 'ar' ? 'حدد موعداً معي' : 'Schedule time with me',
+          text: locale === 'ar' ? 'احجز اجتماعاً' : 'Book A Meeting',
           color: '#c9a96e', // Tilal Gold
           textColor: '#ffffff',
           branding: true,
@@ -300,8 +300,8 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
           <div ref={infoRef} className="space-y-10">
             <div>
               <span className="label text-gold mb-4 block">{locale === 'ar' ? 'اتصل بنا' : 'Call Us'}</span>
-              <p className="font-display text-3xl md:text-4xl text-fg tracking-tight">800 15</p>
-              <p className="text-fg-muted mt-2">{locale === 'ar' ? 'مجاني داخل الإمارات' : 'Toll-free within UAE'}</p>
+              <p className="font-display text-3xl md:text-4xl text-fg tracking-tight">+971 52 675 9498</p>
+              <p className="text-fg-muted mt-2">{locale === 'ar' ? 'متاحين لمساعدتك' : 'Available to assist you'}</p>
             </div>
             <div>
               <span className="label text-gold mb-4 block">{locale === 'ar' ? 'الموقع' : 'Location'}</span>

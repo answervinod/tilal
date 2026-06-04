@@ -76,7 +76,7 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
         style.innerHTML = `
           .calendly-badge-widget, 
           .calendly-badge-widget * {
-            font-family: 'aktivGrotesk', 'Aktiv Grotesk', sans-serif !important;
+            font-family: var(--font-sans), sans-serif !important;
           }
         `;
         document.head.appendChild(style);

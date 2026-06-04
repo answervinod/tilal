@@ -54,11 +54,28 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch('/api/inquiry', {
+      if (!form.nationality) {
+        alert(locale === 'ar' ? 'يرجى اختيار الجنسية' : 'Please select your nationality');
+        return;
+      }
+      if (!form.phone || form.phone.trim().length < 5) {
+        alert(locale === 'ar' ? 'يرجى إدخال رقم هاتف صحيح' : 'Please enter a valid phone number');
+        return;
+      }
+
+      const res = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, locale })
       });
+      
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        console.error('API Error:', data);
+        alert(locale === 'ar' ? 'حدث خطأ. يرجى المحاولة مرة أخرى.' : 'Something went wrong. Please try again.');
+        return;
+      }
+
       setSubmitted(true);
       setForm({
         firstName: '',

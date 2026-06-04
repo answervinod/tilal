@@ -68,8 +68,18 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
           text: locale === 'ar' ? 'احجز اجتماعاً' : 'Book A Meeting',
           color: '#c9a96e', // Tilal Gold
           textColor: '#ffffff',
-          branding: true,
+          branding: false,
         });
+
+        // Force font family via CSS since Calendly injects its own styles
+        const style = document.createElement('style');
+        style.innerHTML = `
+          .calendly-badge-widget, 
+          .calendly-badge-widget * {
+            font-family: 'aktivGrotesk', 'Aktiv Grotesk', sans-serif !important;
+          }
+        `;
+        document.head.appendChild(style);
       }
     };
     document.body.appendChild(script);

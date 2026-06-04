@@ -23,7 +23,7 @@ export const inquirySchema = z.object({
   purpose: z.enum(['Self use', 'Investment']),
   timeline: z.enum(['Immediately', 'Less than 6 months']),
   buyerType: z.enum(['Cash buyer', 'Mortgage buyer']),
-  message: z.string().trim().min(10, 'Please add a short message').max(3000).optional().or(z.literal('')),
+  message: z.string().trim().min(2, 'Please add a short message').max(3000).optional().or(z.literal('')),
   subject: z.string().trim().max(200).optional().or(z.literal('')),
   /** Slug of the related project (when inquiry came from a listing detail page). */
   projectSlug: z.string().trim().max(120).optional().or(z.literal('')),

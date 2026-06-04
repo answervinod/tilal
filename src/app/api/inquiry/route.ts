@@ -89,6 +89,7 @@ export async function POST(request: Request) {
         phone: data.phone,
         nationality: data.nationality,
         occupation: data.occupation,
+        property_type: 'N/A',
         unit_type: data.unitType,
         purpose: data.purpose,
         timeline: data.timeline,

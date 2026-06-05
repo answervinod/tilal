@@ -112,7 +112,7 @@ export function Header({ locale, settings, nav }: HeaderProps) {
             
             {/* Hamburger Button */}
             <button 
-              className="md:hidden text-bg p-2 focus:outline-none"
+              className="md:hidden text-fg p-2 focus:outline-none hover:text-gold transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
             >

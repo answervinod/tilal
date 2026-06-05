@@ -52,7 +52,14 @@ const residences = [
 
 export function ResidencesClient({ locale }: { locale: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState(residences[0].id);
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 250, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -93,7 +100,7 @@ export function ResidencesClient({ locale }: { locale: string }) {
       <div className="container">
         {/* Navigation Tabs */}
         <div className="relative mb-12">
-          <div className="flex overflow-x-auto hide-scrollbar gap-4 pb-4 border-b border-fg/10 reveal-up pr-12 md:pr-0">
+          <div ref={scrollRef} className="flex overflow-x-auto hide-scrollbar gap-4 pb-4 border-b border-fg/10 reveal-up pr-12 md:pr-0">
             {residences.map((res) => (
               <button
                 key={res.id}
@@ -109,13 +116,17 @@ export function ResidencesClient({ locale }: { locale: string }) {
             ))}
           </div>
           {/* Right indicator for mobile scrolling */}
-          <div className="absolute right-0 top-0 bottom-4 flex items-center pointer-events-none md:hidden bg-gradient-to-l from-bg via-bg/80 to-transparent pl-8 pr-2">
-            <div className="bg-white/80 backdrop-blur-sm rounded-full p-1 text-gold shadow-sm animate-pulse">
+          <button 
+            onClick={scrollRight}
+            className="absolute right-0 top-0 bottom-4 flex items-center md:hidden bg-gradient-to-l from-bg via-bg/80 to-transparent pl-8 pr-2"
+            aria-label="Scroll right"
+          >
+            <div className="bg-white/80 backdrop-blur-sm rounded-full p-1 text-gold shadow-sm animate-pulse hover:bg-white">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
             </div>
-          </div>
+          </button>
         </div>
 
         {/* Active Residence Display */}

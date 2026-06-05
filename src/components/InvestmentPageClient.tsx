@@ -132,10 +132,10 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                 {locale === 'ar' ? 'نظرة عامة على الأسعار' : 'Pricing Overview'}
               </h3>
               <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Details.webp" alt="Pricing Details" fill className="object-cover" />
+                <Image src={encodeURI("/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Details.webp")} alt="Pricing Details" fill className="object-cover" decoding="async" />
               </div>
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Range.webp" alt="Pricing Range" fill className="object-cover" />
+                <Image src={encodeURI("/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Range.webp")} alt="Pricing Range" fill className="object-cover" decoding="async" />
               </div>
             </div>
 
@@ -145,7 +145,7 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                 <span>{locale === 'ar' ? 'خطة دفع للمواطنين' : 'Emirati Payment Plan'}</span>
               </h3>
               <div className="relative aspect-[1/1.4] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Emirati PP.webp" alt="Emirati Payment Plan" fill className="object-cover" />
+                <Image src={encodeURI("/Tilal Binghatti/Payment Plan & Pricing/Emirati PP.webp")} alt="Emirati Payment Plan" fill className="object-cover" decoding="async" />
               </div>
             </div>
           </div>
@@ -171,19 +171,21 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                 </a>
               </div>
 
-              <div className="space-y-8 bg-fg/5 p-4 md:p-12 rounded-3xl">
-                {standardPpPages.map((page, idx) => (
-                  <div key={idx} className="relative w-full aspect-[1.4/1] bg-white rounded-xl shadow-2xl overflow-hidden">
-                    <Image 
-                      src={page} 
-                      alt={`Standard Payment Plan - Page ${idx + 1}`}
-                      fill
-                      className="object-contain"
-                      sizes="100vw"
-                    />
-                  </div>
-                ))}
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {standardPpPages.map((page, idx) => (
+                <div key={idx} className="relative aspect-[1/1.414] rounded-2xl overflow-hidden shadow-2xl bg-white border border-fg/5 group hover:shadow-gold/20 transition-shadow duration-500">
+                  <Image 
+                    src={encodeURI(page)} 
+                    alt={`Payment Plan Page ${idx + 1}`} 
+                    fill 
+                    className="object-contain p-4 group-hover:scale-[1.02] transition-transform duration-500" 
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    loading={idx < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
             </div>
           )}
         </div>

@@ -45,8 +45,8 @@ export function FloorPlansClient({ locale, plans }: { locale: string, plans: Pla
 
       <div className="container">
         {plans.length === 0 ? (
-          <div className="py-20 text-center text-fg-muted bg-fg/5 rounded-2xl border border-fg/10">
-            Generating floor plan previews... Please check back shortly.
+          <div className="hidden lg:block relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl reveal-up">
+            <Image src={encodeURI("/Tilal Binghatti/Payment Plan & Pricing/Tilal Unit Sizes.webp")} alt="Unit Sizes Overview" fill className="object-cover" decoding="async" />
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row gap-12 items-start">
@@ -103,12 +103,14 @@ export function FloorPlansClient({ locale, plans }: { locale: string, plans: Pla
                       </div>
                       <div className="relative w-full aspect-[1/1.4] md:aspect-[1.4/1]">
                         <Image 
-                          src={page} 
+                          src={encodeURI(page)} 
                           alt={`${activePlan.name} - Page ${idx + 1}`}
                           fill
                           className="object-contain"
                           sizes="(max-width: 1024px) 100vw, 75vw"
                           quality={90}
+                          loading={idx === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
                         />
                       </div>
                     </div>

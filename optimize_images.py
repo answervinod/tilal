@@ -17,7 +17,7 @@ def compress_image(file_path):
             if img.mode in ("RGBA", "P"):
                 img = img.convert("RGB")
             
-            max_width = 2560
+            max_width = 1200
             if img.width > max_width:
                 ratio = max_width / img.width
                 new_size = (max_width, int(img.height * ratio))

@@ -116,12 +116,13 @@ export function ResidencesClient({ locale }: { locale: string }) {
             {/* Front View */}
             <div className="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-fg/5 shadow-2xl shadow-fg/5">
               <Image 
-                src={activeResidence.front}
+                src={encodeURI(activeResidence.front)}
                 alt={`${activeResidence.title} Front View`}
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute bottom-6 left-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
@@ -134,11 +135,13 @@ export function ResidencesClient({ locale }: { locale: string }) {
             {/* Back View */}
             <div className="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-fg/5 shadow-2xl shadow-fg/5">
               <Image 
-                src={activeResidence.back}
+                src={encodeURI(activeResidence.back)}
                 alt={`${activeResidence.title} Back View`}
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                decoding="async"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute bottom-6 left-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">

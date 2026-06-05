@@ -44,44 +44,39 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
       {/* Hero Section */}
       <section className="relative h-[70vh] min-h-[500px] flex items-end">
         <Image 
-          src="/Tilal Binghatti/Tilal Community General/Tilal Community Render.webp" 
+          src={encodeURI("/Tilal Binghatti/Tilal Community General/Tilal Community Render.webp")} 
           alt="Tilal Community Render" 
           fill 
           priority
           sizes="100vw"
           className="object-cover" 
+          decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-        <div className="container relative z-10 pb-20 reveal-up">
-          <span className="label text-gold mb-4 block">{locale === 'ar' ? 'المجتمع' : 'The Community'}</span>
-          <h1 className="font-display text-white text-5xl md:text-7xl lg:text-8xl mb-6 tracking-tight">
-            {locale === 'ar' ? 'تيلال بن غاطي' : 'Tilal Binghatti'}
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent" />
+        <div className="container relative z-10 pb-16 md:pb-24 reveal-up">
+          <span className="label text-gold mb-4 block">{locale === 'ar' ? 'مجتمع متكامل' : 'Master Community'}</span>
+          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl mb-6">
+            {locale === 'ar' ? 'الحياة في تيلال' : 'Life at Tilal'}
           </h1>
-          <p className="text-white/80 max-w-2xl text-lg md:text-xl">
+          <p className="text-fg-muted max-w-2xl text-lg md:text-xl leading-relaxed">
             {locale === 'ar' 
-              ? 'مجتمع سكني فاخر متكامل يجمع بين الطبيعة الخلابة والتصميم المعماري العصري.'
-              : 'An exclusive sanctuary where visionary architecture meets serene natural landscapes.'}
+              ? 'مجتمع مسور حصري يمزج بين الفخامة المعمارية والطبيعة الهادئة، صمم لمن يقدرون أرقى أساليب الحياة.'
+              : 'An exclusive gated community blending architectural grandeur with serene nature, designed for those who appreciate the finest lifestyles.'}
           </p>
         </div>
       </section>
 
-      {/* Clusters Section */}
-      <section className="py-24 md:py-32 container reveal-up">
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl mb-6">
-            {locale === 'ar' ? 'تجمعات الفلل' : 'Villa Clusters'}
-          </h2>
-        </div>
+      <section className="container py-24 md:py-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-4">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-              <Image src="/Tilal Binghatti/Tilal Community General/4 & 5 Bed - Cluster.webp" alt="4 & 5 Bed Cluster" fill className="object-cover" />
+              <Image src={encodeURI("/Tilal Binghatti/Tilal Community General/4 & 5 Bed - Cluster.webp")} alt="4 & 5 Bed Cluster" fill className="object-cover" decoding="async" />
             </div>
             <h3 className="font-display text-2xl">4 & 5 Bedroom Clusters</h3>
           </div>
           <div className="space-y-4">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-              <Image src="/Tilal Binghatti/Tilal Community General/5 BR TWIN CLUSTER.webp" alt="5 Bed Twin Cluster" fill className="object-cover" />
+              <Image src={encodeURI("/Tilal Binghatti/Tilal Community General/5 BR TWIN CLUSTER.webp")} alt="5 Bed Twin Cluster" fill className="object-cover" decoding="async" />
             </div>
             <h3 className="font-display text-2xl">5 Bedroom Twin Clusters</h3>
           </div>
@@ -164,6 +159,7 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
                   sizes="(max-width: 1024px) 100vw, 1024px"
                   className="object-contain" 
                   loading={idx < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
                 />
               </div>
             ))}

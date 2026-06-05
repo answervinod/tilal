@@ -9,9 +9,9 @@ def convert_pdf_to_images(pdf_path, output_dir):
     doc = fitz.open(pdf_path)
     os.makedirs(output_dir, exist_ok=True)
     
-    # 1.5x zoom is plenty for web (around 108 DPI)
-    zoom_x = 1.5 
-    zoom_y = 1.5 
+    # 0.5x zoom is plenty for web (~700-1000px wide)
+    zoom_x = 0.5 
+    zoom_y = 0.5 
     mat = fitz.Matrix(zoom_x, zoom_y)
     
     for page_num in range(len(doc)):

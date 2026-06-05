@@ -6,6 +6,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import assetsMap from '@/assets_map.json';
+
+const getImg = (path: string) => (assetsMap as any)[path] ? `${(assetsMap as any)[path]}?w=1600&fm=webp&q=80` : encodeURI(path);
 
 const stats = [
   { value: 'AED 4.2M+', label: 'Starting Price', labelAr: 'السعر الابتدائي' },
@@ -132,10 +135,10 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                 {locale === 'ar' ? 'نظرة عامة على الأسعار' : 'Pricing Overview'}
               </h3>
               <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src={encodeURI("/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Details.webp")} alt="Pricing Details" fill className="object-cover" decoding="async" />
+                <Image src={getImg("/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Details.webp")} alt="Pricing Details" fill className="object-cover" decoding="async" />
               </div>
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src={encodeURI("/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Range.webp")} alt="Pricing Range" fill className="object-cover" decoding="async" />
+                <Image src={getImg("/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Range.webp")} alt="Pricing Range" fill className="object-cover" decoding="async" />
               </div>
             </div>
 
@@ -145,7 +148,7 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                 <span>{locale === 'ar' ? 'خطة دفع للمواطنين' : 'Emirati Payment Plan'}</span>
               </h3>
               <div className="relative aspect-[1/1.4] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src={encodeURI("/Tilal Binghatti/Payment Plan & Pricing/Emirati PP.webp")} alt="Emirati Payment Plan" fill className="object-cover" decoding="async" />
+                <Image src={getImg("/Tilal Binghatti/Payment Plan & Pricing/Emirati PP.webp")} alt="Emirati Payment Plan" fill className="object-cover" decoding="async" />
               </div>
             </div>
           </div>
@@ -175,7 +178,7 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
               {standardPpPages.map((page, idx) => (
                 <div key={idx} className="relative aspect-[1/1.414] rounded-2xl overflow-hidden shadow-2xl bg-white border border-fg/5 group hover:shadow-gold/20 transition-shadow duration-500">
                   <Image 
-                    src={encodeURI(page)} 
+                    src={getImg(page)} 
                     alt={`Payment Plan Page ${idx + 1}`} 
                     fill 
                     className="object-contain p-4 group-hover:scale-[1.02] transition-transform duration-500" 

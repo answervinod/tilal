@@ -3,7 +3,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import assetsMap from '@/assets_map.json';
+
+const getImg = (path: string) => (assetsMap as any)[path] ? `${(assetsMap as any)[path]}?w=1600&fm=webp&q=80` : encodeURI(path);
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -46,7 +49,7 @@ export function FloorPlansClient({ locale, plans }: { locale: string, plans: Pla
       <div className="container">
         {plans.length === 0 ? (
           <div className="hidden lg:block relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl reveal-up">
-            <Image src={encodeURI("/Tilal Binghatti/Payment Plan & Pricing/Tilal Unit Sizes.webp")} alt="Unit Sizes Overview" fill className="object-cover" decoding="async" />
+            <Image src={getImg("/Tilal Binghatti/Payment Plan & Pricing/Tilal Unit Sizes.webp")} alt="Unit Sizes Overview" fill className="object-cover" decoding="async" />
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row gap-12 items-start">
@@ -103,7 +106,7 @@ export function FloorPlansClient({ locale, plans }: { locale: string, plans: Pla
                       </div>
                       <div className="relative w-full aspect-[1/1.4] md:aspect-[1.4/1]">
                         <Image 
-                          src={encodeURI(page)} 
+                          src={getImg(page)} 
                           alt={`${activePlan.name} - Page ${idx + 1}`}
                           fill
                           className="object-contain"

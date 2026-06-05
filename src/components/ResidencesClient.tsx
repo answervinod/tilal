@@ -4,6 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import assetsMap from '@/assets_map.json';
+
+const getImg = (path: string) => (assetsMap as any)[path] ? `${(assetsMap as any)[path]}?w=1600&fm=webp&q=80` : encodeURI(path);
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -116,7 +119,7 @@ export function ResidencesClient({ locale }: { locale: string }) {
             {/* Front View */}
             <div className="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-fg/5 shadow-2xl shadow-fg/5">
               <Image 
-                src={encodeURI(activeResidence.front)}
+                src={getImg(activeResidence.front)}
                 alt={`${activeResidence.title} Front View`}
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -135,7 +138,7 @@ export function ResidencesClient({ locale }: { locale: string }) {
             {/* Back View */}
             <div className="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-fg/5 shadow-2xl shadow-fg/5">
               <Image 
-                src={encodeURI(activeResidence.back)}
+                src={getImg(activeResidence.back)}
                 alt={`${activeResidence.title} Back View`}
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"

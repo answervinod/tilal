@@ -8,38 +8,44 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+import assetsMap from '@/assets_map.json';
+
 export default async function FloorPlansPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  // Read the directory structure of generated PDF images for Unit Plans
-  const baseDir = path.join(process.cwd(), 'public', 'assets', 'pdf-images', 'Unit Plans');
+  const prefix = '/assets/pdf-images/Unit Plans/';
   let plans: { id: string; name: string; pages: string[]; pdfUrl: string }[] = [];
 
   try {
-    if (fs.existsSync(baseDir)) {
-      const folders = fs.readdirSync(baseDir, { withFileTypes: true })
-        .filter(dirent => dirent.isDirectory())
-        .map(dirent => dirent.name);
+    const unitPlanKeys = Object.keys(assetsMap).filter(k => k.startsWith(prefix));
+    
+    // Extract unique folder names
+    const folderSet = new Set<string>();
+    for (const key of unitPlanKeys) {
+      const remaining = key.substring(prefix.length);
+      const folderName = remaining.split('/')[0];
+      if (folderName) folderSet.add(folderName);
+    }
+    
+    const folders = Array.from(folderSet);
 
-      for (const folder of folders) {
-        const folderPath = path.join(baseDir, folder);
-        const files = fs.readdirSync(folderPath)
-          .filter(f => f.endsWith('.webp'))
-          .sort((a, b) => {
-            // Sort by page number (page_1.webp, page_2.webp)
-            const numA = parseInt(a.replace('page_', '').replace('.webp', '')) || 0;
-            const numB = parseInt(b.replace('page_', '').replace('.webp', '')) || 0;
-            return numA - numB;
-          });
-
-        plans.push({
-          id: folder.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-          name: folder,
-          pages: files.map(f => `/assets/pdf-images/Unit Plans/${folder}/${f}`),
-          pdfUrl: `/Tilal Binghatti/Unit Plans/${folder}.pdf`
+    for (const folder of folders) {
+      const folderPrefix = `${prefix}${folder}/`;
+      const pages = unitPlanKeys
+        .filter(k => k.startsWith(folderPrefix))
+        .sort((a, b) => {
+          const numA = parseInt(a.replace(folderPrefix + 'page_', '').replace('.webp', '')) || 0;
+          const numB = parseInt(b.replace(folderPrefix + 'page_', '').replace('.webp', '')) || 0;
+          return numA - numB;
         });
-      }
+
+      plans.push({
+        id: folder.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        name: folder,
+        pages: pages,
+        pdfUrl: `/Tilal Binghatti/Unit Plans/${folder}.pdf`
+      });
     }
   } catch (error) {
     console.error('Error reading floor plans:', error);

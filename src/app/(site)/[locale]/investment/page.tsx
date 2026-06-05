@@ -30,6 +30,7 @@ export async function generateMetadata({
 
 import fs from 'fs';
 import path from 'path';
+import assetsMap from '@/assets_map.json';
 
 export default async function InvestmentPage({
   params,
@@ -45,21 +46,18 @@ export default async function InvestmentPage({
     tags: [`page:investment:${locale}`],
   }).catch(() => null);
 
-  // Read the PDF images for the Standard Payment Plan
-  const ppDir = path.join(process.cwd(), 'public', 'assets', 'pdf-images', 'Payment Plan & Pricing', 'Tilal Binghatti - PP');
+  // Read the PDF images for the Standard Payment Plan from assetsMap
+  const prefix = '/assets/pdf-images/Payment Plan & Pricing/Tilal Binghatti - PP/';
   let standardPpPages: string[] = [];
 
   try {
-    if (fs.existsSync(ppDir)) {
-      const files = fs.readdirSync(ppDir)
-        .filter(f => f.endsWith('.webp'))
-        .sort((a, b) => {
-          const numA = parseInt(a.replace('page_', '').replace('.webp', '')) || 0;
-          const numB = parseInt(b.replace('page_', '').replace('.webp', '')) || 0;
-          return numA - numB;
-        });
-      standardPpPages = files.map(f => `/assets/pdf-images/Payment Plan & Pricing/Tilal Binghatti - PP/${f}`);
-    }
+    standardPpPages = Object.keys(assetsMap)
+      .filter(k => k.startsWith(prefix))
+      .sort((a, b) => {
+        const numA = parseInt(a.replace(prefix + 'page_', '').replace('.webp', '')) || 0;
+        const numB = parseInt(b.replace(prefix + 'page_', '').replace('.webp', '')) || 0;
+        return numA - numB;
+      });
   } catch (error) {
     console.error('Error reading payment plan images:', error);
   }

@@ -8,20 +8,19 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+import assetsMap from '@/assets_map.json';
+
 function getPdfPages(subPath: string) {
-  const dir = path.join(process.cwd(), 'public', 'assets', 'pdf-images', subPath);
+  const prefix = `/assets/pdf-images/${subPath}/`;
   let pages: string[] = [];
   try {
-    if (fs.existsSync(dir)) {
-      const files = fs.readdirSync(dir)
-        .filter(f => f.endsWith('.webp'))
-        .sort((a, b) => {
-          const numA = parseInt(a.replace('page_', '').replace('.webp', '')) || 0;
-          const numB = parseInt(b.replace('page_', '').replace('.webp', '')) || 0;
-          return numA - numB;
-        });
-      pages = files.map(f => `/assets/pdf-images/${subPath}/${f}`);
-    }
+    pages = Object.keys(assetsMap)
+      .filter(k => k.startsWith(prefix))
+      .sort((a, b) => {
+        const numA = parseInt(a.replace(prefix + 'page_', '').replace('.webp', '')) || 0;
+        const numB = parseInt(b.replace(prefix + 'page_', '').replace('.webp', '')) || 0;
+        return numA - numB;
+      });
   } catch (error) {
     console.error(`Error reading ${subPath}:`, error);
   }

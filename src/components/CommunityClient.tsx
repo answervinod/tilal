@@ -4,6 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import assetsMap from '@/assets_map.json';
+
+const getImg = (path: string) => (assetsMap as any)[path] ? `${(assetsMap as any)[path]}?w=1600&fm=webp&q=80` : encodeURI(path);
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -44,7 +47,7 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
       {/* Hero Section */}
       <section className="relative h-[70vh] min-h-[500px] flex items-end">
         <Image 
-          src={encodeURI("/Tilal Binghatti/Tilal Community General/Tilal Community Render.webp")} 
+          src={getImg("/Tilal Binghatti/Tilal Community General/Tilal Community Render.webp")} 
           alt="Tilal Community Render" 
           fill 
           priority
@@ -70,13 +73,13 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-4">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-              <Image src={encodeURI("/Tilal Binghatti/Tilal Community General/4 & 5 Bed - Cluster.webp")} alt="4 & 5 Bed Cluster" fill className="object-cover" decoding="async" />
+              <Image src={getImg("/Tilal Binghatti/Tilal Community General/4 & 5 Bed - Cluster.webp")} alt="4 & 5 Bed Cluster" fill className="object-cover" decoding="async" />
             </div>
             <h3 className="font-display text-2xl">4 & 5 Bedroom Clusters</h3>
           </div>
           <div className="space-y-4">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-              <Image src={encodeURI("/Tilal Binghatti/Tilal Community General/5 BR TWIN CLUSTER.webp")} alt="5 Bed Twin Cluster" fill className="object-cover" decoding="async" />
+              <Image src={getImg("/Tilal Binghatti/Tilal Community General/5 BR TWIN CLUSTER.webp")} alt="5 Bed Twin Cluster" fill className="object-cover" decoding="async" />
             </div>
             <h3 className="font-display text-2xl">5 Bedroom Twin Clusters</h3>
           </div>
@@ -153,7 +156,7 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
             {activePages.map((page, idx) => (
               <div key={`${activeBrochure}-${idx}`} className="relative w-full aspect-[1.414/1] bg-white rounded-xl shadow-lg overflow-hidden border border-fg/5">
                 <Image 
-                  src={page} 
+                  src={getImg(page)} 
                   alt={`${activeBrochure} collection page ${idx + 1}`} 
                   fill 
                   sizes="(max-width: 1024px) 100vw, 1024px"

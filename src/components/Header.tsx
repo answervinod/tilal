@@ -44,8 +44,8 @@ export function Header({ locale, settings, nav }: HeaderProps) {
         ref={headerRef}
         className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 ${
           scrolled || mobileMenuOpen
-            ? 'bg-fg/90 backdrop-blur-xl border-b border-white/10'
-            : 'bg-fg/40 backdrop-blur-md'
+            ? 'bg-bg/90 backdrop-blur-xl border-b border-fg/5'
+            : 'bg-bg/60 backdrop-blur-md'
         }`}
       >
         <div className="container flex items-center justify-between h-24">
@@ -57,10 +57,10 @@ export function Header({ locale, settings, nav }: HeaderProps) {
                 alt={siteTitle}
                 width={40}
                 height={40}
-                className="object-contain brightness-0 invert"
+                className="object-contain brightness-0"
               />
             ) : (
-              <span className="font-display text-2xl tracking-tight text-bg">
+              <span className="font-display text-2xl tracking-tight text-fg">
                 {siteTitle}
               </span>
             )}
@@ -68,23 +68,31 @@ export function Header({ locale, settings, nav }: HeaderProps) {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-10">
-            <Link href={`/${locale}/residences`} className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase">
+            <Link href={`/${locale}/about`} className="relative text-sm font-medium tracking-wide text-fg/80 hover:text-fg transition-colors duration-300 group uppercase">
+              {locale === 'ar' ? 'معلومات عنا' : 'About'}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
+            </Link>
+            <Link href={`/${locale}/residences`} className="relative text-sm font-medium tracking-wide text-fg/80 hover:text-fg transition-colors duration-300 group uppercase">
               {locale === 'ar' ? 'الوحدات السكنية' : 'Residences'}
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
             </Link>
-            <Link href={`/${locale}/community`} className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase">
+            <Link href={`/${locale}/community`} className="relative text-sm font-medium tracking-wide text-fg/80 hover:text-fg transition-colors duration-300 group uppercase">
               {locale === 'ar' ? 'المجتمع' : 'Community'}
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
             </Link>
-            <Link href={`/${locale}/investment`} className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase">
+            <Link href={`/${locale}/investment`} className="relative text-sm font-medium tracking-wide text-fg/80 hover:text-fg transition-colors duration-300 group uppercase">
               {locale === 'ar' ? 'الاستثمار' : 'Investment'}
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
             </Link>
-            {links.map((link, i) => (
+            <Link href={`/${locale}/developments`} className="relative text-sm font-medium tracking-wide text-fg/80 hover:text-fg transition-colors duration-300 group uppercase">
+              {locale === 'ar' ? 'التطورات' : 'Developments'}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
+            </Link>
+            {links.filter(l => !['about', 'residences', 'community', 'investment', 'developments', 'contact'].includes(l.label.toLowerCase())).map((link, i) => (
               <Link
                 key={`nav-${link.label}-${i}`}
                 href={resolveLink(link, locale)}
-                className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase"
+                className="relative text-sm font-medium tracking-wide text-fg/80 hover:text-fg transition-colors duration-300 group uppercase"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
@@ -94,10 +102,10 @@ export function Header({ locale, settings, nav }: HeaderProps) {
 
           {/* Right */}
           <div className="flex items-center gap-6">
-            <LocaleSwitcher current={locale} light={true} />
+            <LocaleSwitcher current={locale} light={false} />
             <Link
               href={`/${locale}/contact`}
-              className="hidden md:inline-flex text-sm font-medium tracking-wide uppercase px-6 py-3 bg-gold text-fg hover:bg-white transition-all duration-300"
+              className="hidden md:inline-flex text-sm font-medium tracking-wide uppercase px-6 py-3 bg-gold text-bg hover:bg-gold-dark transition-all duration-300"
             >
               Contact
             </Link>
@@ -126,6 +134,9 @@ export function Header({ locale, settings, nav }: HeaderProps) {
         }`}
       >
         <nav className="flex flex-col items-center gap-8">
+          <Link href={`/${locale}/about`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display tracking-wide text-bg hover:text-gold transition-colors duration-300 uppercase">
+            {locale === 'ar' ? 'معلومات عنا' : 'About'}
+          </Link>
           <Link href={`/${locale}/residences`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display tracking-wide text-bg hover:text-gold transition-colors duration-300 uppercase">
             {locale === 'ar' ? 'الوحدات السكنية' : 'Residences'}
           </Link>
@@ -135,7 +146,10 @@ export function Header({ locale, settings, nav }: HeaderProps) {
           <Link href={`/${locale}/investment`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display tracking-wide text-bg hover:text-gold transition-colors duration-300 uppercase">
             {locale === 'ar' ? 'الاستثمار' : 'Investment'}
           </Link>
-          {links.map((link, i) => (
+          <Link href={`/${locale}/developments`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display tracking-wide text-bg hover:text-gold transition-colors duration-300 uppercase">
+            {locale === 'ar' ? 'التطورات' : 'Developments'}
+          </Link>
+          {links.filter(l => !['about', 'residences', 'community', 'investment', 'developments', 'contact'].includes(l.label.toLowerCase())).map((link, i) => (
             <Link
               key={`mobile-nav-${link.label}-${i}`}
               href={resolveLink(link, locale)}

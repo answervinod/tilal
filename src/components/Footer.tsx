@@ -77,28 +77,25 @@ export function Footer({ locale, settings, nav }: FooterProps) {
 
         {/* Links grid */}
         <div className="grid grid-cols-12 gap-x-6 gap-y-12">
-          {/* Explore — from Sanity nav columns */}
+          {/* Explore */}
           <div className="col-span-6 sm:col-span-4 lg:col-span-2">
             <p className="label text-gold mb-6">Explore</p>
             <ul className="space-y-3">
-              {nav?.footerColumns?.[0]?.links?.map((link, j) => (
-                <li key={`explore-${j}`}>
-                  <Link
-                    href={resolveLink(link, locale)}
-                    target={link.newTab ? '_blank' : undefined}
-                    rel={link.newTab ? 'noopener noreferrer' : undefined}
-                    className="text-bg/50 hover:text-bg transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              )) || (
-                <>
-                  <li><span className="text-bg/50 text-sm">Projects</span></li>
-                  <li><span className="text-bg/50 text-sm">Amenities</span></li>
-                  <li><span className="text-bg/50 text-sm">Investment</span></li>
-                </>
-              )}
+              <li>
+                <Link href={`/${locale}/projects`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'المشاريع' : 'Projects'}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/amenities`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'المرافق' : 'Amenities'}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/investment`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'الاستثمار وخطط الدفع' : 'Investment & Payment Plans'}
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -106,23 +103,16 @@ export function Footer({ locale, settings, nav }: FooterProps) {
           <div className="col-span-6 sm:col-span-4 lg:col-span-2">
             <p className="label text-gold mb-6">Company</p>
             <ul className="space-y-3">
-              {nav?.footerColumns?.[1]?.links?.map((link, j) => (
-                <li key={`company-${j}`}>
-                  <Link
-                    href={resolveLink(link, locale)}
-                    target={link.newTab ? '_blank' : undefined}
-                    rel={link.newTab ? 'noopener noreferrer' : undefined}
-                    className="text-bg/50 hover:text-bg transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              )) || (
-                <>
-                  <li><span className="text-bg/50 text-sm">About</span></li>
-                  <li><span className="text-bg/50 text-sm">Contact</span></li>
-                </>
-              )}
+              <li>
+                <Link href={`/${locale}/about`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'معلومات عنا' : 'About'}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/contact`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'اتصل بنا' : 'Contact'}
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -143,11 +133,6 @@ export function Footer({ locale, settings, nav }: FooterProps) {
               <li>
                 <Link href={`/${locale}/community`} className="text-bg/50 hover:text-bg transition-colors text-sm">
                   {locale === 'ar' ? 'المجتمع والكتيبات' : 'Community & Brochures'}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${locale}/investment`} className="text-bg/50 hover:text-bg transition-colors text-sm">
-                  {locale === 'ar' ? 'الاستثمار وخطط الدفع' : 'Investment & Payment Plans'}
                 </Link>
               </li>
             </ul>

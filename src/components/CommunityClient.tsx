@@ -107,7 +107,7 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
             <div className="space-y-8">
               {masterPlanPages.map((page, idx) => (
                 <div key={idx} className="relative w-full aspect-[1.4/1] rounded-2xl shadow-xl overflow-hidden">
-                  <Image src={page} alt={`Master Plan Page ${idx + 1}`} fill className="object-cover" />
+                  <Image src={getImg(page)} alt={`Master Plan Page ${idx + 1}`} fill className="object-cover" decoding="async" />
                 </div>
               ))}
             </div>

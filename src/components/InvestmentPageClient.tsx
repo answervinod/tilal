@@ -8,7 +8,15 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import assetsMap from '@/assets_map.json';
 
-const getImg = (path: string) => (assetsMap as any)[path] ? `${(assetsMap as any)[path]}?w=1600&fm=webp&q=80` : encodeURI(path);
+const getImg = (path: string) => {
+  const url = (assetsMap as any)[path];
+  if (!url) return encodeURI(path);
+  if (path.toLowerCase().endsWith('.pdf')) {
+    const filename = path.split('/').pop() || 'download.pdf';
+    return `${url}?dl=${encodeURIComponent(filename)}`;
+  }
+  return `${url}?w=1600&fm=webp&q=80`;
+};
 
 const stats = [
   { value: 'AED 4.2M+', label: 'Starting Price', labelAr: 'السعر الابتدائي' },
@@ -194,7 +202,7 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                   </h3>
                 </div>
                 <a 
-                  href="/Tilal Binghatti/Payment Plan & Pricing/Tilal Binghatti - PP.pdf" 
+                  href={getImg("/Tilal Binghatti/Payment Plan & Pricing/Tilal Binghatti - PP.pdf")} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="mt-6 md:mt-0 inline-flex items-center gap-2 px-8 py-4 bg-gold text-bg text-sm font-medium tracking-wide hover:bg-gold-dark transition-colors shrink-0"

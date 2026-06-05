@@ -17,7 +17,7 @@ const targets = [
 
 const assetsMap = {};
 
-async function uploadFile(filePath) {
+async function uploadFile(filePath, type = 'image') {
   const relPath = '/' + path.relative(baseDir, filePath).replace(/\\/g, '/');
   
   if (assetsMap[relPath]) {
@@ -29,7 +29,7 @@ async function uploadFile(filePath) {
   const stream = fs.createReadStream(filePath);
   
   try {
-    const asset = await client.assets.upload('image', stream, {
+    const asset = await client.assets.upload(type, stream, {
       filename: path.basename(filePath)
     });
     assetsMap[relPath] = asset.url;
@@ -49,7 +49,9 @@ async function walkDir(dir) {
     } else {
       const ext = path.extname(filePath).toLowerCase();
       if (['.webp', '.jpg', '.jpeg', '.png'].includes(ext)) {
-        await uploadFile(filePath);
+        await uploadFile(filePath, 'image');
+      } else if (ext === '.pdf') {
+        await uploadFile(filePath, 'file');
       }
     }
   }

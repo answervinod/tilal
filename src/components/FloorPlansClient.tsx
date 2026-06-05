@@ -6,7 +6,15 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import assetsMap from '@/assets_map.json';
 
-const getImg = (path: string) => (assetsMap as any)[path] ? `${(assetsMap as any)[path]}?w=1600&fm=webp&q=80` : encodeURI(path);
+const getImg = (path: string) => {
+  const url = (assetsMap as any)[path];
+  if (!url) return encodeURI(path);
+  if (path.toLowerCase().endsWith('.pdf')) {
+    const filename = path.split('/').pop() || 'download.pdf';
+    return `${url}?dl=${encodeURIComponent(filename)}`;
+  }
+  return `${url}?w=1600&fm=webp&q=80`;
+};
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -88,7 +96,7 @@ export function FloorPlansClient({ locale, plans }: { locale: string, plans: Pla
                     <p className="text-fg-muted mt-2 text-sm">{activePlan.pages.length} Pages Available</p>
                   </div>
                   <a 
-                    href={activePlan.pdfUrl} 
+                    href={getImg(activePlan.pdfUrl)} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-gold text-bg text-sm font-medium tracking-wide hover:bg-gold-dark transition-colors shrink-0"

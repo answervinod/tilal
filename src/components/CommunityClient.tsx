@@ -6,7 +6,15 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import assetsMap from '@/assets_map.json';
 
-const getImg = (path: string) => (assetsMap as any)[path] ? `${(assetsMap as any)[path]}?w=1600&fm=webp&q=80` : encodeURI(path);
+const getImg = (path: string) => {
+  const url = (assetsMap as any)[path];
+  if (!url) return encodeURI(path);
+  if (path.toLowerCase().endsWith('.pdf')) {
+    const filename = path.split('/').pop() || 'download.pdf';
+    return `${url}?dl=${encodeURIComponent(filename)}`;
+  }
+  return `${url}?w=1600&fm=webp&q=80`;
+};
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -96,7 +104,7 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
                 <h2 className="font-display text-4xl md:text-5xl">{locale === 'ar' ? 'خريطة المجتمع' : 'Community Map'}</h2>
               </div>
               <a 
-                href="/Tilal Binghatti/Tilal Master Plan.pdf" 
+                href={getImg("/Tilal Binghatti/Tilal Master Plan.pdf")} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="mt-6 md:mt-0 inline-flex items-center gap-2 px-8 py-4 bg-fg text-bg text-sm font-medium tracking-wide hover:bg-gold transition-colors"
@@ -142,7 +150,7 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
         <div className="max-w-5xl mx-auto reveal-up">
           <div className="flex justify-end mb-8">
             <a 
-              href={activePdfUrl} 
+              href={getImg(activePdfUrl)} 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gold text-bg text-sm font-medium transition-colors hover:bg-gold-dark"

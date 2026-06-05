@@ -23,7 +23,7 @@ const points = [
   { en: 'Golden visa eligibility for investors', ar: 'أهلية تأشيرة الذهبية للمستثمرين' },
 ];
 
-export function InvestmentPageClient({ locale }: { locale: Locale }) {
+export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale: Locale, standardPpPages?: string[] }) {
   const heroRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
@@ -105,7 +105,7 @@ export function InvestmentPageClient({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-32">
           {stats.map((stat, i) => (
             <div key={i} className="stat-item border-t border-fg/10 pt-6">
               <p className="font-display text-gold mb-2" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1, letterSpacing: '-0.03em' }}>
@@ -114,6 +114,78 @@ export function InvestmentPageClient({ locale }: { locale: Locale }) {
               <p className="text-label text-fg-muted">{locale === 'ar' ? stat.labelAr : stat.label}</p>
             </div>
           ))}
+        </div>
+
+        {/* Pricing & Payment Plans Section */}
+        <div className="border-t border-fg/10 pt-20">
+          <div className="text-center mb-16">
+            <span className="label text-gold block mb-4">{locale === 'ar' ? 'الأسعار وخطط الدفع' : 'Pricing & Payment Plans'}</span>
+            <h2 className="font-display text-4xl md:text-5xl mb-6">
+              {locale === 'ar' ? 'خيارات استثمارية مرنة' : 'Flexible Investment Options'}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+            {/* Pricing Overview */}
+            <div className="space-y-8">
+              <h3 className="font-display text-2xl md:text-3xl text-gold border-b border-fg/10 pb-4">
+                {locale === 'ar' ? 'نظرة عامة على الأسعار' : 'Pricing Overview'}
+              </h3>
+              <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-2xl">
+                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Details.jpg" alt="Pricing Details" fill className="object-cover" />
+              </div>
+              <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-2xl">
+                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Range.jpeg" alt="Pricing Range" fill className="object-cover" />
+              </div>
+            </div>
+
+            {/* Emirati Payment Plan */}
+            <div className="space-y-8">
+              <h3 className="font-display text-2xl md:text-3xl text-gold border-b border-fg/10 pb-4 flex justify-between items-center">
+                <span>{locale === 'ar' ? 'خطة دفع للمواطنين' : 'Emirati Payment Plan'}</span>
+              </h3>
+              <div className="relative aspect-[1/1.4] w-full rounded-2xl overflow-hidden shadow-2xl">
+                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Emirati PP.jpg" alt="Emirati Payment Plan" fill className="object-cover" />
+              </div>
+            </div>
+          </div>
+
+          {/* Standard Payment Plan Brochure */}
+          {standardPpPages.length > 0 && (
+            <div className="mt-32">
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                  <span className="label text-gold block mb-4">{locale === 'ar' ? 'الكتيب الرسمي' : 'Official Brochure'}</span>
+                  <h3 className="font-display text-3xl md:text-4xl">
+                    {locale === 'ar' ? 'خطة الدفع القياسية' : 'Standard Payment Plan'}
+                  </h3>
+                </div>
+                <a 
+                  href="/Tilal Binghatti/Payment Plan & Pricing/Tilal Binghatti - PP.pdf" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="mt-6 md:mt-0 inline-flex items-center gap-2 px-8 py-4 bg-gold text-bg text-sm font-medium tracking-wide hover:bg-gold-dark transition-colors shrink-0"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                  {locale === 'ar' ? 'تحميل الكتيب (PDF)' : 'Download Brochure (PDF)'}
+                </a>
+              </div>
+
+              <div className="space-y-8 bg-fg/5 p-4 md:p-12 rounded-3xl">
+                {standardPpPages.map((page, idx) => (
+                  <div key={idx} className="relative w-full aspect-[1.4/1] bg-white rounded-xl shadow-2xl overflow-hidden">
+                    <Image 
+                      src={page} 
+                      alt={`Standard Payment Plan - Page ${idx + 1}`}
+                      fill
+                      className="object-contain"
+                      sizes="100vw"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </main>

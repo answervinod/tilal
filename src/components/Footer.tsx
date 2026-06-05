@@ -160,14 +160,6 @@ export function Footer({ locale, settings, nav }: FooterProps) {
               >
                 {contactEmail}
               </a>
-              {settings?.contactPhone && (
-                <a
-                  href={`tel:${settings.contactPhone.replace(/\s/g, '')}`}
-                  className="block text-bg/60 hover:text-gold transition-colors text-sm"
-                >
-                  {settings.contactPhone}
-                </a>
-              )}
               {settings?.address && (
                 <p className="text-bg/40 text-sm leading-relaxed max-w-xs">
                   {settings.address}

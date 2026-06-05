@@ -92,20 +92,24 @@ export function ResidencesClient({ locale }: { locale: string }) {
 
       <div className="container">
         {/* Navigation Tabs */}
-        <div className="flex overflow-x-auto hide-scrollbar gap-4 mb-12 pb-4 border-b border-fg/10 reveal-up">
-          {residences.map((res) => (
-            <button
-              key={res.id}
-              onClick={() => setActiveTab(res.id)}
-              className={`whitespace-nowrap px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeTab === res.id 
-                  ? 'bg-gold text-bg shadow-lg shadow-gold/20' 
-                  : 'bg-white/50 text-fg hover:bg-white border border-fg/5'
-              }`}
-            >
-              {res.title}
-            </button>
-          ))}
+        <div className="relative mb-12">
+          <div className="flex overflow-x-auto hide-scrollbar gap-4 pb-4 border-b border-fg/10 reveal-up pr-12 md:pr-0">
+            {residences.map((res) => (
+              <button
+                key={res.id}
+                onClick={() => setActiveTab(res.id)}
+                className={`whitespace-nowrap shrink-0 px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  activeTab === res.id 
+                    ? 'bg-gold text-bg shadow-lg shadow-gold/20' 
+                    : 'bg-white/50 text-fg hover:bg-white border border-fg/5'
+                }`}
+              >
+                {res.title}
+              </button>
+            ))}
+          </div>
+          {/* Right fade indicator for mobile scrolling */}
+          <div className="absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-bg to-transparent pointer-events-none md:hidden" />
         </div>
 
         {/* Active Residence Display */}

@@ -6,6 +6,17 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Locale } from '@/i18n/config';
+import assetsMap from '@/assets_map.json';
+
+const getImg = (path: string) => {
+  const url = (assetsMap as any)[path];
+  if (!url) return encodeURI(path);
+  if (path.toLowerCase().endsWith('.pdf')) {
+    const filename = path.split('/').pop() || 'download.pdf';
+    return `${url}?dl=${encodeURIComponent(filename)}`;
+  }
+  return `${url}?w=1600&fm=webp&q=80`;
+};
 
 const projects = [
   {
@@ -20,6 +31,7 @@ const projects = [
     price: 'AED 4.2M+',
     features: ['Open-plan interiors', 'Private gardens', 'Community lagoon access'],
     featuresAr: ['مساحات داخلية مفتوحة', 'حدائق خاصة', 'وصول إلى البحيرة المجتمعية'],
+    pdfUrl: '/project/Tilal Binghatti - Dunes Villa(Digital).pdf'
   },
   {
     slug: 'tilal-oasis',
@@ -33,6 +45,7 @@ const projects = [
     price: 'AED 5.1M+',
     features: ['Waterfront views', 'Landscaped courtyards', 'Community parks'],
     featuresAr: ['إطلالات على الواجهة المائية', 'ساحات منسقة', 'منتزهات مجتمعية'],
+    pdfUrl: '/project/Tilal Binghatti - Oasis Villa(Digital).pdf'
   },
   {
     slug: 'tilal-islands',
@@ -218,12 +231,22 @@ export function ProjectsPageClient({ locale }: { locale: Locale }) {
                 </ul>
                 <div className="flex items-center gap-6">
                   <span className="font-display text-2xl text-gold">{project.price}</span>
-                  <Link
-                    href={`/${locale}/projects/${project.slug}`}
-                    className="text-sm font-medium tracking-wide uppercase px-6 py-3 bg-fg text-bg hover:bg-gold hover:text-fg transition-all duration-300"
-                  >
-                    {locale === 'ar' ? 'عرض التفاصيل' : 'View Details'}
-                  </Link>
+                  {project.pdfUrl ? (
+                    <a
+                      href={getImg(project.pdfUrl)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium tracking-wide uppercase px-6 py-3 bg-fg text-bg hover:bg-gold hover:text-fg transition-all duration-300"
+                    >
+                      {locale === 'ar' ? 'تحميل' : 'Download'}
+                    </a>
+                  ) : (
+                    <span
+                      className="text-sm font-medium tracking-wide uppercase px-6 py-3 bg-fg/50 text-bg/80 cursor-not-allowed transition-all duration-300"
+                    >
+                      {locale === 'ar' ? 'قريباً' : 'Coming Soon'}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

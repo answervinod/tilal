@@ -12,7 +12,8 @@ const client = createClient({
 
 const baseDir = path.join(process.cwd(), 'public');
 const targets = [
-  path.join(baseDir, 'Tilal Binghatti')
+  path.join(baseDir, 'Tilal Binghatti'),
+  path.join(baseDir, 'project')
 ];
 
 const assetsMap = {};

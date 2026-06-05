@@ -130,8 +130,26 @@ export function Footer({ locale, settings, nav }: FooterProps) {
           <div className="col-span-6 sm:col-span-4 lg:col-span-2">
             <p className="label text-gold mb-6">Resources</p>
             <ul className="space-y-3">
-              <li><span className="text-bg/50 text-sm">Brochure</span></li>
-              <li><span className="text-bg/50 text-sm">Payment Plans</span></li>
+              <li>
+                <Link href={`/${locale}/residences`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'الوحدات السكنية' : 'Residences Gallery'}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/floor-plans`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'المخططات الطابقية' : 'Floor Plans'}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/community`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'المجتمع والكتيبات' : 'Community & Brochures'}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/investment`} className="text-bg/50 hover:text-bg transition-colors text-sm">
+                  {locale === 'ar' ? 'الاستثمار وخطط الدفع' : 'Investment & Payment Plans'}
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -68,6 +68,18 @@ export function Header({ locale, settings, nav }: HeaderProps) {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-10">
+            <Link href={`/${locale}/residences`} className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase">
+              {locale === 'ar' ? 'الوحدات السكنية' : 'Residences'}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
+            </Link>
+            <Link href={`/${locale}/community`} className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase">
+              {locale === 'ar' ? 'المجتمع' : 'Community'}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
+            </Link>
+            <Link href={`/${locale}/investment`} className="relative text-sm font-medium tracking-wide text-bg/80 hover:text-bg transition-colors duration-300 group uppercase">
+              {locale === 'ar' ? 'الاستثمار' : 'Investment'}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold group-hover:w-full transition-all duration-500" />
+            </Link>
             {links.map((link, i) => (
               <Link
                 key={`nav-${link.label}-${i}`}
@@ -108,13 +120,21 @@ export function Header({ locale, settings, nav }: HeaderProps) {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
       <div 
         className={`fixed inset-0 z-[90] bg-fg/95 backdrop-blur-xl transition-all duration-500 md:hidden flex flex-col justify-center items-center ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
         <nav className="flex flex-col items-center gap-8">
+          <Link href={`/${locale}/residences`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display tracking-wide text-bg hover:text-gold transition-colors duration-300 uppercase">
+            {locale === 'ar' ? 'الوحدات السكنية' : 'Residences'}
+          </Link>
+          <Link href={`/${locale}/community`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display tracking-wide text-bg hover:text-gold transition-colors duration-300 uppercase">
+            {locale === 'ar' ? 'المجتمع' : 'Community'}
+          </Link>
+          <Link href={`/${locale}/investment`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-display tracking-wide text-bg hover:text-gold transition-colors duration-300 uppercase">
+            {locale === 'ar' ? 'الاستثمار' : 'Investment'}
+          </Link>
           {links.map((link, i) => (
             <Link
               key={`mobile-nav-${link.label}-${i}`}

@@ -108,8 +108,14 @@ export function ResidencesClient({ locale }: { locale: string }) {
               </button>
             ))}
           </div>
-          {/* Right fade indicator for mobile scrolling */}
-          <div className="absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-bg to-transparent pointer-events-none md:hidden" />
+          {/* Right indicator for mobile scrolling */}
+          <div className="absolute right-0 top-0 bottom-4 flex items-center pointer-events-none md:hidden bg-gradient-to-l from-bg via-bg/80 to-transparent pl-8 pr-2">
+            <div className="bg-white/80 backdrop-blur-sm rounded-full p-1 text-gold shadow-sm animate-pulse">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
         </div>
 
         {/* Active Residence Display */}

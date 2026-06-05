@@ -145,7 +145,7 @@ export function ProjectsShowcase({ locale, data }: Props) {
             return (
               <Link
                 key={i}
-                href={`/${locale || 'en'}/projects/${slug}`}
+                href={`/${locale || 'en'}/projects`}
                 className="project-card group block"
               >
                 <div className="relative aspect-[3/4] overflow-hidden mb-6">

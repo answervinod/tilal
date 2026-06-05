@@ -24,8 +24,8 @@ export default function CookiePolicyPage({
 
           <h2>1. Introduction</h2>
           <p>
-            This Cookie Policy explains how <strong>QHTECH SOLUTIONS L.L.C</strong>, acting as a marketing firm for 
-            Tilal Binghatti Residences ("we", "us", and "our"), uses cookies and similar technologies to recognize you when you visit 
+            This Cookie Policy explains how <strong>Tilal Binghatti Residences</strong>, acting as a marketing firm for 
+            QHTECH SOLUTIONS L.L.C ("we", "us", and "our"), uses cookies and similar technologies to recognize you when you visit 
             our website. It explains what these technologies are and why we use them, as well as your rights to control our use of them.
           </p>
 
@@ -34,7 +34,7 @@ export default function CookiePolicyPage({
             Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.
           </p>
           <p>
-            Cookies set by the website owner (in this case, QHTECH SOLUTIONS L.L.C) are called "first-party cookies". Cookies set by parties other than the website owner are called "third-party cookies". Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., like advertising, interactive content, and analytics). The parties that set these third-party cookies can recognize your computer both when it visits the website in question and also when it visits certain other websites.
+            Cookies set by the website owner (in this case, Tilal Binghatti Residences) are called "first-party cookies". Cookies set by parties other than the website owner are called "third-party cookies". Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., like advertising, interactive content, and analytics). The parties that set these third-party cookies can recognize your computer both when it visits the website in question and also when it visits certain other websites.
           </p>
 
           <h2>3. Why do we use cookies?</h2>

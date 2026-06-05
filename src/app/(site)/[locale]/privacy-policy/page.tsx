@@ -24,8 +24,8 @@ export default function PrivacyPolicyPage({
           
           <h2>1. Introduction</h2>
           <p>
-            Welcome to Tilal Binghatti Residences. This Privacy Policy outlines how <strong>QHTECH SOLUTIONS L.L.C</strong> 
-            (registered at Meydan Road, Nad Ali Sheba, Dubai, U.A.E), acting as a marketing firm for Tilal Binghatti Residences 
+            Welcome to Tilal Binghatti Residences. This Privacy Policy outlines how <strong>Tilal Binghatti Residences</strong>, 
+            acting as a marketing firm for QHTECH SOLUTIONS L.L.C (registered at Meydan Road, Nad Ali Sheba, Dubai, U.A.E) 
             ("we," "our," or "us"), collects, uses, protects, and discloses your personal information when you visit our website 
             and use our services.
           </p>

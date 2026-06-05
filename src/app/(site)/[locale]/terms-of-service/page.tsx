@@ -25,7 +25,7 @@ export default function TermsOfServicePage({
           <h2>1. Agreement to Terms</h2>
           <p>
             These Terms of Service constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and 
-            <strong> QHTECH SOLUTIONS L.L.C</strong>, operating as a marketing firm for Tilal Binghatti Residences ("we," "us," or "our"), 
+            <strong> Tilal Binghatti Residences</strong>, acting as a marketing firm for QHTECH SOLUTIONS L.L.C ("we," "us," or "our"), 
             concerning your access to and use of the Tilal Binghatti Residences website as well as any other media form, media channel, mobile website, 
             or mobile application related, linked, or otherwise connected thereto.
           </p>

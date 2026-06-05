@@ -18,9 +18,9 @@ export function Footer({ locale, settings, nav }: FooterProps) {
   const year = new Date().getFullYear();
 
   const legalLinks = [
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
-    { label: 'Cookie Policy', href: '#' },
+    { label: 'Privacy Policy', href: `/${locale}/privacy-policy` },
+    { label: 'Terms of Service', href: `/${locale}/terms-of-service` },
+    { label: 'Cookie Policy', href: `/${locale}/cookie-policy` },
   ];
 
   return (
@@ -144,7 +144,9 @@ export function Footer({ locale, settings, nav }: FooterProps) {
             <ul className="space-y-3">
               {legalLinks.map((link) => (
                 <li key={link.label}>
-                  <span className="text-bg/50 text-sm cursor-default">{link.label}</span>
+                  <Link href={link.href} target="_blank" rel="noopener noreferrer" className="text-bg/50 text-sm hover:text-bg transition-colors">
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>

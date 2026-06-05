@@ -132,10 +132,10 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                 {locale === 'ar' ? 'نظرة عامة على الأسعار' : 'Pricing Overview'}
               </h3>
               <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Details.jpg" alt="Pricing Details" fill className="object-cover" />
+                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Details.webp" alt="Pricing Details" fill className="object-cover" />
               </div>
               <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Range.jpeg" alt="Pricing Range" fill className="object-cover" />
+                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Tilal Pricing Range.webp" alt="Pricing Range" fill className="object-cover" />
               </div>
             </div>
 
@@ -145,7 +145,7 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                 <span>{locale === 'ar' ? 'خطة دفع للمواطنين' : 'Emirati Payment Plan'}</span>
               </h3>
               <div className="relative aspect-[1/1.4] w-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Emirati PP.jpg" alt="Emirati Payment Plan" fill className="object-cover" />
+                <Image src="/Tilal Binghatti/Payment Plan & Pricing/Emirati PP.webp" alt="Emirati Payment Plan" fill className="object-cover" />
               </div>
             </div>
           </div>

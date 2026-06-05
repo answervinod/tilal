@@ -25,11 +25,11 @@ export default async function FloorPlansPage({ params }: { params: Promise<{ loc
       for (const folder of folders) {
         const folderPath = path.join(baseDir, folder);
         const files = fs.readdirSync(folderPath)
-          .filter(f => f.endsWith('.jpg'))
+          .filter(f => f.endsWith('.webp'))
           .sort((a, b) => {
-            // Sort by page number (page_1.jpg, page_2.jpg)
-            const numA = parseInt(a.replace('page_', '').replace('.jpg', '')) || 0;
-            const numB = parseInt(b.replace('page_', '').replace('.jpg', '')) || 0;
+            // Sort by page number (page_1.webp, page_2.webp)
+            const numA = parseInt(a.replace('page_', '').replace('.webp', '')) || 0;
+            const numB = parseInt(b.replace('page_', '').replace('.webp', '')) || 0;
             return numA - numB;
           });
 

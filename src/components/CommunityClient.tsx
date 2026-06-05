@@ -44,7 +44,7 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
       {/* Hero Section */}
       <section className="relative h-[70vh] min-h-[500px] flex items-end">
         <Image 
-          src="/Tilal Binghatti/Tilal Community General/Tilal Community Render.jpg" 
+          src="/Tilal Binghatti/Tilal Community General/Tilal Community Render.webp" 
           alt="Tilal Community Render" 
           fill 
           priority
@@ -75,13 +75,13 @@ export function CommunityClient({ locale, dunesPages, oasisPages, masterPlanPage
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-4">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-              <Image src="/Tilal Binghatti/Tilal Community General/4 & 5 Bed - Cluster.jpg" alt="4 & 5 Bed Cluster" fill className="object-cover" />
+              <Image src="/Tilal Binghatti/Tilal Community General/4 & 5 Bed - Cluster.webp" alt="4 & 5 Bed Cluster" fill className="object-cover" />
             </div>
             <h3 className="font-display text-2xl">4 & 5 Bedroom Clusters</h3>
           </div>
           <div className="space-y-4">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-              <Image src="/Tilal Binghatti/Tilal Community General/5 BR TWIN CLUSTER.jpg" alt="5 Bed Twin Cluster" fill className="object-cover" />
+              <Image src="/Tilal Binghatti/Tilal Community General/5 BR TWIN CLUSTER.webp" alt="5 Bed Twin Cluster" fill className="object-cover" />
             </div>
             <h3 className="font-display text-2xl">5 Bedroom Twin Clusters</h3>
           </div>

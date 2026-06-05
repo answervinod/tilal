@@ -14,36 +14,36 @@ const residences = [
     id: '4-5-villa',
     title: '4 BR & 5 BR Villas',
     subtitle: 'Dunes and Oasis Collection',
-    front: '/Tilal Binghatti/Images/Tilal Binghatti_Dunes and Oasis_4 BR Villa and 5 BR Premium and Grand Villa_Front.jpeg',
-    back: '/Tilal Binghatti/Images/Tilal Binghatti_Dunes and Oasis__4 BR Villa and 5 BR Premium and Grand Villa_Back.jpeg'
+    front: '/Tilal Binghatti/Images/Tilal Binghatti_Dunes and Oasis_4 BR Villa and 5 BR Premium and Grand Villa_Front.webp',
+    back: '/Tilal Binghatti/Images/Tilal Binghatti_Dunes and Oasis__4 BR Villa and 5 BR Premium and Grand Villa_Back.webp'
   },
   {
     id: '6-mansion',
     title: '6 BR Mansion',
     subtitle: 'Exclusive Residence',
-    front: '/Tilal Binghatti/Images/Tilal Binghatti_6BR Mansion_Front.jpeg',
-    back: '/Tilal Binghatti/Images/Tilal Binghatti_6BR Mansion_Back.jpeg'
+    front: '/Tilal Binghatti/Images/Tilal Binghatti_6BR Mansion_Front.webp',
+    back: '/Tilal Binghatti/Images/Tilal Binghatti_6BR Mansion_Back.webp'
   },
   {
     id: '6-grand-mansion',
     title: '6 BR Grand Mansion',
     subtitle: 'Signature Series',
-    front: '/Tilal Binghatti/Images/Tilal Binghatti_6BR Grand Mansion_Front.jpeg',
-    back: '/Tilal Binghatti/Images/Tilal Binghatti_6BR Grand Mansion_Back.jpeg'
+    front: '/Tilal Binghatti/Images/Tilal Binghatti_6BR Grand Mansion_Front.webp',
+    back: '/Tilal Binghatti/Images/Tilal Binghatti_6BR Grand Mansion_Back.webp'
   },
   {
     id: '7-sea-palace',
     title: '7 BR Sea Palace',
     subtitle: 'Waterfront Luxury',
-    front: '/Tilal Binghatti/Images/Tilal Binghatti_7BR Sea Palace_Front.jpeg',
-    back: '/Tilal Binghatti/Images/Tilal Binghatti_7BR Sea Palace_Back.jpeg'
+    front: '/Tilal Binghatti/Images/Tilal Binghatti_7BR Sea Palace_Front.webp',
+    back: '/Tilal Binghatti/Images/Tilal Binghatti_7BR Sea Palace_Back.webp'
   },
   {
     id: '8-royal-sea-palace',
     title: '8 BR Royal Sea Palace',
     subtitle: 'The Pinnacle of Tilal',
-    front: '/Tilal Binghatti/Images/Tilal Binghatti_8BR The Royal Sea Palace_Front.jpeg',
-    back: '/Tilal Binghatti/Images/Tilal Binghatti_8BR The Royal Sea Palace_Back.jpeg'
+    front: '/Tilal Binghatti/Images/Tilal Binghatti_8BR The Royal Sea Palace_Front.webp',
+    back: '/Tilal Binghatti/Images/Tilal Binghatti_8BR The Royal Sea Palace_Back.webp'
   }
 ];
 

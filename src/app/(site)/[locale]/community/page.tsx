@@ -14,10 +14,10 @@ function getPdfPages(subPath: string) {
   try {
     if (fs.existsSync(dir)) {
       const files = fs.readdirSync(dir)
-        .filter(f => f.endsWith('.jpg'))
+        .filter(f => f.endsWith('.webp'))
         .sort((a, b) => {
-          const numA = parseInt(a.replace('page_', '').replace('.jpg', '')) || 0;
-          const numB = parseInt(b.replace('page_', '').replace('.jpg', '')) || 0;
+          const numA = parseInt(a.replace('page_', '').replace('.webp', '')) || 0;
+          const numB = parseInt(b.replace('page_', '').replace('.webp', '')) || 0;
           return numA - numB;
         });
       pages = files.map(f => `/assets/pdf-images/${subPath}/${f}`);

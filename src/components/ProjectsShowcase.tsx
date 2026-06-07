@@ -30,16 +30,6 @@ const projects = [
     beds: '4 & 5 Bedroom',
     size: '2,850 sq. ft.',
   },
-  {
-    slug: 'tilal-islands',
-    image: '/images/page14_img2.jpeg',
-    name: 'Tilal Islands',
-    nameAr: 'جزر تلال',
-    tagline: 'Ultra-premium waterfront living with exclusive mansions and private landscapes.',
-    taglineAr: 'معيشة فائقة الفخامة على الواجهة المائية مع قصور حصرية ومناظر طبيعية خاصة.',
-    beds: '6 Bedroom',
-    size: '5,683 sq. ft.',
-  },
 ];
 
 export interface ProjectsShowcaseData {

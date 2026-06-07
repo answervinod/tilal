@@ -47,46 +47,6 @@ const projects = [
     featuresAr: ['إطلالات على الواجهة المائية', 'ساحات منسقة', 'منتزهات مجتمعية'],
     pdfUrl: '/project/Tilal Binghatti - Oasis Villa(Digital).pdf'
   },
-  {
-    slug: 'tilal-islands',
-    image: '/images/page14_img2.jpeg',
-    name: 'Tilal Islands',
-    nameAr: 'جزر تلال',
-    tagline: 'Ultra-premium waterfront living with exclusive mansions and private landscapes.',
-    taglineAr: 'معيشة فائقة الفخامة على الواجهة المائية مع قصور حصرية ومناظر طبيعية خاصة.',
-    beds: '6 Bedroom',
-    size: '5,683 sq. ft.',
-    price: 'AED 12M+',
-    features: ['Private waterfront', 'Expansive layouts', 'Premium finishes'],
-    featuresAr: ['واجهة مائية خاصة', 'تخطيطات واسعة', 'تشطيبات فاخرة'],
-  },
-  {
-    slug: 'grand-mansions',
-    image: '/images/page23_img1.jpeg',
-    gallery: ['/images/page23_img5.jpeg'],
-    name: 'Grand Mansions',
-    nameAr: 'القصور الكبرى',
-    tagline: 'Elevated luxury with enhanced architectural scale and bespoke detailing.',
-    taglineAr: 'فخامة مرتفعة مع نطاق معماري معزز وتفاصيل مخصصة.',
-    beds: '5 & 6 Bedroom',
-    size: '4,200 sq. ft.',
-    price: 'AED 8.5M+',
-    features: ['Bespoke interiors', 'Private pools', 'Smart home systems'],
-    featuresAr: ['مساحات داخلية مخصصة', 'مسابح خاصة', 'أنظمة منزل ذكية'],
-  },
-  {
-    slug: 'sea-palace',
-    image: '/images/page24_img1.jpeg',
-    name: 'Sea Palace',
-    nameAr: 'قصر البحر',
-    tagline: 'Ultra-premium residences designed for elite living with palace-level design.',
-    taglineAr: 'مساكن فائقة الفخامة مصممة للحياة الراقية بتصميم على مستوى القصور.',
-    beds: '6 & 7 Bedroom',
-    size: '7,500 sq. ft.',
-    price: 'AED 18M+',
-    features: ['Palace-level architecture', 'Private marina access', 'Dedicated staff quarters'],
-    featuresAr: ['هندسة على مستوى القصور', 'وصول إلى مرسى خاص', 'أماكن إقامة مخصصة للموظفين'],
-  },
 ];
 
 export function ProjectsPageClient({ locale }: { locale: Locale }) {
@@ -185,21 +145,7 @@ export function ProjectsPageClient({ locale }: { locale: Locale }) {
                     className="object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </div>
-                {project.gallery && project.gallery.length > 0 && (
-                  <div className="grid grid-cols-2 gap-4">
-                    {project.gallery.map((gimg, gi) => (
-                      <div key={gi} className="relative aspect-[4/3] overflow-hidden">
-                        <Image
-                          src={gimg}
-                          alt={`${project.name} gallery ${gi + 1}`}
-                          fill
-                          sizes="(max-width: 1024px) 50vw, 25vw"
-                          className="object-cover transition-transform duration-700 hover:scale-105"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
+
               </div>
 
               <div className={i % 2 === 1 ? 'lg:order-1' : ''}>

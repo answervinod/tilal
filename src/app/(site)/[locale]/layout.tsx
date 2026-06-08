@@ -11,6 +11,7 @@ import { Footer } from '@/components/Footer';
 import { DraftModeIndicator } from '@/components/DraftModeIndicator';
 import { SmoothScrollProvider } from '@/components/SmoothScroll';
 import { CustomCursor } from '@/components/CustomCursor';
+import { WhatsAppWidget } from '@/components/WhatsAppWidget';
 import { sanityFetch } from '../../../../sanity/lib/fetch';
 import { siteSettingsQuery, navigationQuery } from '../../../../sanity/lib/queries';
 import type { Navigation, SiteSettings } from '../../../../sanity/lib/types';
@@ -100,6 +101,7 @@ export default async function SiteRootLayout({
             <Header locale={locale as Locale} settings={settings} nav={nav} />
             <div className="flex-1">{children}</div>
             <Footer locale={locale as Locale} settings={settings} nav={nav} />
+            <WhatsAppWidget />
             <DraftModeIndicator />
           </SmoothScrollProvider>
         </NextIntlClientProvider>

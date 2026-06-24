@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import localFont from 'next/font/local';
 import { Tajawal } from 'next/font/google';
 import { locales, localeDirection, type Locale } from '@/i18n/config';
@@ -94,6 +95,20 @@ export default async function SiteRootLayout({
       dir={dir}
       className={`${aktivGrotesk.variable} ${tajawal.variable}`}
     >
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18222889298"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18222889298');
+          `}
+        </Script>
+      </head>
       <body className="min-h-screen flex flex-col bg-bg text-fg">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <SmoothScrollProvider>

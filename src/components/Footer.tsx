@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { resolveLink } from '@/lib/resolveLink';
 import type { Locale } from '@/i18n/config';
 import type { Navigation, SiteSettings } from '../../sanity/lib/types';
+import { CalendlyPopupButton } from '@/components/CalendlyPopupButton';
 
 interface FooterProps {
   locale: Locale;
@@ -35,15 +36,7 @@ export function Footer({ locale, settings, nav }: FooterProps) {
                 Let&apos;s discuss your future residence.
               </p>
             </div>
-            <a
-              href={`mailto:${contactEmail}`}
-              className="inline-flex items-center gap-3 bg-gold text-fg px-8 py-4 text-sm font-medium tracking-wide hover:bg-gold-light transition-colors shrink-0"
-            >
-              Schedule a consultation
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="opacity-60">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-            </a>
+            <CalendlyPopupButton locale={locale} />
           </div>
         </div>
       </div>

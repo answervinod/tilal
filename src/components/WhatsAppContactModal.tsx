@@ -148,7 +148,7 @@ export function WhatsAppContactModal({ isOpen, onClose, whatsappUrl }: Props) {
                     value={value}
                     onChange={onChange}
                     error={errors.phone?.message}
-                    variant="transparent"
+                    variant="dark"
                   />
                 )}
               />

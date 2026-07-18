@@ -8,7 +8,7 @@ interface PhoneInputProps {
   onChange: (value: string) => void;
   error?: string;
   id?: string;
-  variant?: 'default' | 'transparent';
+  variant?: 'default' | 'transparent' | 'dark';
 }
 
 export function PhoneInput({ value, onChange, error, id, variant = 'default' }: PhoneInputProps) {
@@ -58,12 +58,16 @@ export function PhoneInput({ value, onChange, error, id, variant = 'default' }: 
 
   const btnCls = variant === 'transparent'
     ? 'flex items-center gap-2 px-3 py-3 bg-transparent text-fg text-sm transition-colors focus:outline-none'
+    : variant === 'dark'
+    ? 'flex items-center gap-2 px-3 py-3 bg-white/5 border border-r-0 border-white/10 rounded-l-lg text-white text-sm transition-colors focus:outline-none focus:border-[#25D366]'
     : `flex items-center gap-2 px-3 py-3 bg-slate-50 border border-r-0 text-sm transition-colors ${
         error ? 'border-red-500' : 'border-neutral-300'
       } focus:outline-none focus:border-brand`;
 
   const inputCls = variant === 'transparent'
     ? 'w-full bg-transparent py-3 text-fg focus:outline-none transition-colors'
+    : variant === 'dark'
+    ? 'w-full bg-white/5 border border-white/10 rounded-r-lg px-4 py-3 text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#25D366] transition-all'
     : `w-full bg-white border px-4 py-3 text-sm focus:outline-none focus:border-brand transition-colors ${
         error ? 'border-red-500' : 'border-neutral-300'
       }`;
@@ -77,8 +81,8 @@ export function PhoneInput({ value, onChange, error, id, variant = 'default' }: 
         className={btnCls}
       >
         <span className="text-base leading-none">{selectedCountry.flag}</span>
-        <span className={variant === 'transparent' ? 'text-fg font-medium whitespace-nowrap' : 'text-slate-600 font-medium whitespace-nowrap'}>{selectedCountry.dialCode}</span>
-        <svg className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''} ${variant === 'transparent' ? 'text-fg/60' : 'text-slate-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <span className={variant === 'transparent' ? 'text-fg font-medium whitespace-nowrap' : variant === 'dark' ? 'text-white font-medium whitespace-nowrap' : 'text-slate-600 font-medium whitespace-nowrap'}>{selectedCountry.dialCode}</span>
+        <svg className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''} ${variant === 'transparent' ? 'text-fg/60' : variant === 'dark' ? 'text-white/60' : 'text-slate-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>

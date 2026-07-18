@@ -12,6 +12,7 @@ import {
 import type { ProjectListItem, SanityImage } from '../../../../../../sanity/lib/types';
 import { imageUrl } from '../../../../../../sanity/lib/image';
 import { ProjectCard } from '@/components/ProjectCard';
+import { PdfDownloadButton } from '@/components/PdfDownloadButton';
 import { formatPrice, statusLabel, statusTone, formatArea } from '@/lib/format';
 import { locales, type Locale } from '@/i18n/config';
 import { PortableText } from '@portabletext/react';
@@ -330,14 +331,13 @@ export default async function ProjectDetailPage({
             )}
 
             {project.brochure?.asset?.url && (
-              <a
-                href={project.brochure.asset.url}
-                target="_blank"
-                rel="noopener noreferrer"
+              <PdfDownloadButton
+                pdfUrl={project.brochure.asset.url}
+                projectSlug={project.slug}
+                locale={locale as Locale}
+                buttonText={t('downloadBrochure')}
                 className="block w-full text-center px-5 py-3 border border-fg text-fg text-label hover:bg-fg hover:text-bg transition-colors duration-500"
-              >
-                {t('downloadBrochure')}
-              </a>
+              />
             )}
 
             <Link

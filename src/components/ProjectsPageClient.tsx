@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Locale } from '@/i18n/config';
 import assetsMap from '@/assets_map.json';
+import { PdfDownloadButton } from '@/components/PdfDownloadButton';
 
 const getImg = (path: string) => {
   const url = (assetsMap as any)[path];
@@ -235,14 +236,13 @@ export function ProjectsPageClient({ locale }: { locale: Locale }) {
                 <div className="flex items-center gap-6">
                   <span className="font-display text-2xl text-gold">{project.price}</span>
                   {project.pdfUrl ? (
-                    <a
-                      href={getImg(project.pdfUrl)}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <PdfDownloadButton
+                      pdfUrl={getImg(project.pdfUrl)}
+                      projectSlug={project.slug}
+                      locale={locale}
+                      buttonText={locale === 'ar' ? 'تحميل' : 'Download'}
                       className="text-sm font-medium tracking-wide uppercase px-6 py-3 bg-fg text-bg hover:bg-gold hover:text-fg transition-all duration-300"
-                    >
-                      {locale === 'ar' ? 'تحميل' : 'Download'}
-                    </a>
+                    />
                   ) : (
                     <span
                       className="text-sm font-medium tracking-wide uppercase px-6 py-3 bg-fg/50 text-bg/80 cursor-not-allowed transition-all duration-300"

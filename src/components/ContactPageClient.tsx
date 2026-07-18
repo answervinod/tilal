@@ -51,47 +51,6 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
     return () => ctx.revert();
   }, []);
 
-  // Calendly Widget Initialization
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.href = 'https://assets.calendly.com/assets/external/widget.css';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    script.onload = () => {
-      if ((window as any).Calendly) {
-        (window as any).Calendly.initBadgeWidget({
-          url: 'https://calendly.com/maitysabuj939/30min',
-          text: locale === 'ar' ? 'احجز اجتماعاً' : 'Book A Meeting',
-          color: '#c9a96e', // Tilal Gold
-          textColor: '#ffffff',
-          branding: false,
-        });
-
-        // Force font family via CSS since Calendly injects its own styles
-        const style = document.createElement('style');
-        style.innerHTML = `
-          .calendly-badge-widget, 
-          .calendly-badge-widget * {
-            font-family: var(--font-sans), sans-serif !important;
-          }
-        `;
-        document.head.appendChild(style);
-      }
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      if ((window as any).Calendly) {
-        (window as any).Calendly.destroyBadgeWidget();
-      }
-      if (document.head.contains(link)) document.head.removeChild(link);
-      if (document.body.contains(script)) document.body.removeChild(script);
-    };
-  }, [locale]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

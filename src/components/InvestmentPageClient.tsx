@@ -74,25 +74,6 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
     return () => ctx.revert();
   }, []);
 
-  // Preload Calendly for the investment advisor button
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !(window as any).Calendly) {
-      const link = document.createElement('link');
-      link.href = 'https://assets.calendly.com/assets/external/widget.css';
-      link.rel = 'stylesheet';
-      document.head.appendChild(link);
-
-      const script = document.createElement('script');
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
-      script.async = true;
-      document.body.appendChild(script);
-
-      return () => {
-        if (document.head.contains(link)) document.head.removeChild(link);
-        if (document.body.contains(script)) document.body.removeChild(script);
-      };
-    }
-  }, []);
 
   return (
     <main className="bg-bg">
@@ -127,19 +108,12 @@ export function InvestmentPageClient({ locale, standardPpPages = [] }: { locale:
                 </li>
               ))}
             </ul>
-            <button 
-              onClick={(e) => {
-                e.preventDefault();
-                if (typeof window !== 'undefined' && (window as any).Calendly) {
-                  (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/maitysabuj939/30min' });
-                } else {
-                  window.location.href = `/${locale}/contact`;
-                }
-              }}
-              className="magnetic-btn mt-6"
+            <Link 
+              href={`/${locale}/contact`}
+              className="magnetic-btn mt-6 inline-block"
             >
               <span>{locale === 'ar' ? 'تحدث إلى مستشار استثماري' : 'Speak to an Investment Advisor'}</span>
-            </button>
+            </Link>
           </div>
           <div ref={imageRef} className="relative aspect-[4/3]">
             <Image src="/images/page29_img2.jpeg" alt="Investment growth" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />

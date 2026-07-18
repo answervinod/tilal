@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { resolveLink } from '@/lib/resolveLink';
 import type { Locale } from '@/i18n/config';
 import type { Navigation, SiteSettings } from '../../sanity/lib/types';
-import type { Navigation, SiteSettings } from '../../sanity/lib/types';
 
 interface FooterProps {
   locale: Locale;

@@ -139,18 +139,6 @@ export function PdfDownloadModal({ isOpen, onClose, pdfUrl, projectSlug, locale 
           </div>
 
           <div>
-            <label className={labelCls} htmlFor="pdf-email">Email Address</label>
-            <input
-              id="pdf-email"
-              type="email"
-              className={inputCls}
-              autoComplete="email"
-              {...register('email')}
-            />
-            {errors.email && <p className={errCls}>{errors.email.message}</p>}
-          </div>
-
-          <div>
             <label className={labelCls} htmlFor="pdf-phone">Phone Number</label>
             <Controller
               control={control}
@@ -165,6 +153,18 @@ export function PdfDownloadModal({ isOpen, onClose, pdfUrl, projectSlug, locale 
               )}
             />
             {errors.phone && <p className={errCls}>{errors.phone.message}</p>}
+          </div>
+
+          <div>
+            <label className={labelCls} htmlFor="pdf-email">Email Address</label>
+            <input
+              id="pdf-email"
+              type="email"
+              className={inputCls}
+              autoComplete="email"
+              {...register('email')}
+            />
+            {errors.email && <p className={errCls}>{errors.email.message}</p>}
           </div>
 
           {serverError && (

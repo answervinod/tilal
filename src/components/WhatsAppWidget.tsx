@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
+import { WhatsAppContactModal } from './WhatsAppContactModal';
 
 export function WhatsAppWidget() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const phoneNumber = '+971526759498';
   const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}`;
 
@@ -18,10 +19,8 @@ export function WhatsAppWidget() {
         <div className="absolute top-1/2 -right-1 -translate-y-1/2 border-y-4 border-y-transparent border-l-4 border-l-white" />
       </div>
 
-      <Link
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        onClick={() => setIsModalOpen(true)}
         className="flex flex-col items-center gap-1 bg-[#25D366] text-white p-3 md:p-4 rounded-l-2xl shadow-xl hover:bg-[#20bd5a] transition-all duration-300 hover:scale-105 hover:pr-5 border border-r-0 border-white/20 group relative overflow-hidden"
         aria-label="Contact us on WhatsApp"
       >
@@ -37,7 +36,13 @@ export function WhatsAppWidget() {
         <span className="text-[9px] md:text-xs font-bold uppercase tracking-wider relative z-10 md:hidden mt-1 text-center leading-[1.2] max-w-[65px]">
           Book Directly<br/>From Developer
         </span>
-      </Link>
+      </button>
+
+      <WhatsAppContactModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        whatsappUrl={whatsappUrl}
+      />
     </div>
   );
 }

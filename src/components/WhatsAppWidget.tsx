@@ -9,8 +9,9 @@ export function WhatsAppWidget() {
   const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}`;
 
   return (
-    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex items-center group">
-      {/* Title that slides out on hover */}
+    <>
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex items-center group">
+        {/* Title that slides out on hover */}
       <div className="absolute right-full mr-2 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0 hidden md:block">
         <div className="bg-white text-black font-medium text-sm py-2 px-4 rounded-lg shadow-lg whitespace-nowrap border border-black/5">
           Book Directly from Developer
@@ -37,12 +38,13 @@ export function WhatsAppWidget() {
           Book Directly<br/>From Developer
         </span>
       </button>
+      </div>
 
       <WhatsAppContactModal 
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         whatsappUrl={whatsappUrl}
       />
-    </div>
+    </>
   );
 }

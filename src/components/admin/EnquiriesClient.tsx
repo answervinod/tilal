@@ -1,11 +1,15 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { EnquiriesExportButton } from './EnquiriesExportButton';
 
 export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] }) {
   const [enquiries, setEnquiries] = useState(initialEnquiries || []);
   const [search, setSearch] = useState('');
   const [selectedEnquiry, setSelectedEnquiry] = useState<any | null>(null);
+  
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const filteredEnquiries = useMemo(() => {
     let result = enquiries;
@@ -23,6 +27,64 @@ export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] 
 
     return result;
   }, [enquiries, search]);
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filteredEnquiries.length && filteredEnquiries.length > 0) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filteredEnquiries.map(i => i.id)));
+    }
+  };
+
+  const toggleSelect = (id: string) => {
+    const next = new Set(selectedIds);
+    if (next.has(id)) {
+      next.delete(id);
+    } else {
+      next.add(id);
+    }
+    setSelectedIds(next);
+  };
+
+  const deleteEnquiry = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this record?')) return;
+    
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/enquiries/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete');
+      
+      setEnquiries(prev => prev.filter(i => i.id !== id));
+      
+      const nextSelected = new Set(selectedIds);
+      nextSelected.delete(id);
+      setSelectedIds(nextSelected);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to delete the record. Please try again.');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const deleteSelected = async () => {
+    if (selectedIds.size === 0) return;
+    if (!confirm(`Are you sure you want to delete ${selectedIds.size} records?`)) return;
+
+    setIsDeleting(true);
+    try {
+      for (const id of Array.from(selectedIds)) {
+        await fetch(`/api/enquiries/${id}`, { method: 'DELETE' });
+      }
+      setEnquiries(prev => prev.filter(i => !selectedIds.has(i.id)));
+      setSelectedIds(new Set());
+    } catch (err) {
+      console.error(err);
+      alert('Some records failed to delete. Please refresh and try again.');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <>
@@ -42,6 +104,23 @@ export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] 
               />
             </div>
           </div>
+          
+          <div className="flex items-center gap-3">
+            {selectedIds.size > 0 && (
+              <button
+                onClick={deleteSelected}
+                disabled={isDeleting}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-red-200 text-red-600 hover:bg-red-50 text-sm font-medium rounded-lg transition-all shadow-sm disabled:opacity-50"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Delete Selected ({selectedIds.size})
+              </button>
+            )}
+            
+            <EnquiriesExportButton data={filteredEnquiries} />
+          </div>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
@@ -49,6 +128,14 @@ export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] 
             <table className="w-full text-left text-sm text-slate-600 whitespace-nowrap">
               <thead className="bg-slate-50/80 text-slate-500 uppercase tracking-wider text-[11px] font-semibold border-b border-slate-200">
                 <tr>
+                  <th className="px-4 py-4 w-12 text-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedIds.size === filteredEnquiries.length && filteredEnquiries.length > 0}
+                      onChange={toggleSelectAll}
+                      className="w-4 h-4 text-purple-600 border-slate-300 rounded focus:ring-purple-500"
+                    />
+                  </th>
                   <th className="px-6 py-4">Name</th>
                   <th className="px-6 py-4">Contact</th>
                   <th className="px-6 py-4">Project</th>
@@ -59,7 +146,7 @@ export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] 
               <tbody className="divide-y divide-slate-100">
                 {filteredEnquiries.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
+                    <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
                       <div className="flex flex-col items-center gap-2">
                         <svg className="w-8 h-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
@@ -71,7 +158,15 @@ export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] 
                 ) : (
                   filteredEnquiries.map((enquiry) => {
                     return (
-                      <tr key={enquiry.id} className="hover:bg-slate-50/50 transition-colors group">
+                      <tr key={enquiry.id} className={`hover:bg-slate-50/50 transition-colors group ${selectedIds.has(enquiry.id) ? 'bg-purple-50/30' : ''}`}>
+                        <td className="px-4 py-4 text-center">
+                          <input
+                            type="checkbox"
+                            checked={selectedIds.has(enquiry.id)}
+                            onChange={() => toggleSelect(enquiry.id)}
+                            className="w-4 h-4 text-purple-600 border-slate-300 rounded focus:ring-purple-500"
+                          />
+                        </td>
                         <td className="px-6 py-4">
                           <div className="font-medium text-slate-900">{enquiry.first_name} {enquiry.last_name}</div>
                         </td>
@@ -87,12 +182,22 @@ export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] 
                         <td className="px-6 py-4 text-slate-500">
                           {new Date(enquiry.submitted_at).toLocaleDateString()}
                         </td>
-                        <td className="px-6 py-4 text-right">
+                        <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
                           <button
                             onClick={() => setSelectedEnquiry(enquiry)}
                             className="text-purple-600 hover:text-purple-900 font-medium text-xs bg-purple-50 hover:bg-purple-100 px-3 py-1.5 rounded transition-colors"
                           >
                             View
+                          </button>
+                          <button
+                            onClick={() => deleteEnquiry(enquiry.id)}
+                            disabled={isDeleting}
+                            className="text-slate-400 hover:text-red-600 transition-colors p-1.5 rounded-md hover:bg-red-50 disabled:opacity-50 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                            title="Delete"
+                          >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
                           </button>
                         </td>
                       </tr>
@@ -144,7 +249,7 @@ export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] 
                 </div>
                 
                 <div className="col-span-2 sm:col-span-1">
-                  <dt className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Project Downloaded</dt>
+                  <dt className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Project/Source</dt>
                   <dd className="text-sm font-medium text-purple-700">{selectedEnquiry.project_slug || '-'}</dd>
                 </div>
                 <div className="col-span-2 sm:col-span-1">
@@ -156,7 +261,17 @@ export function EnquiriesClient({ initialEnquiries }: { initialEnquiries: any[] 
               </div>
             </div>
             
-            <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+            <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+              <button 
+                onClick={() => {
+                  deleteEnquiry(selectedEnquiry.id);
+                  setSelectedEnquiry(null);
+                }}
+                disabled={isDeleting}
+                className="px-4 py-2 bg-white border border-red-200 text-red-600 rounded-lg text-sm font-medium hover:bg-red-50 focus:outline-none transition-colors"
+              >
+                Delete
+              </button>
               <button 
                 onClick={() => setSelectedEnquiry(null)}
                 className="px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-colors"

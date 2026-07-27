@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { SidebarProfile } from "@/components/admin/SidebarProfile";
 import Link from 'next/link';
+import { MobileSidebar } from '@/components/admin/MobileSidebar';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -62,6 +63,7 @@ export default async function AdminRootLayout({
 
           {/* Main Content Area */}
           <main className="flex-1 flex flex-col min-w-0 bg-[#F8FAFC]">
+            <MobileSidebar locale={params.locale} user={session?.user || null} />
             {children}
           </main>
         </div>

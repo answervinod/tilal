@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user }) {
-      const allowedEmails = ['answercannon@gmail.com', 'rrakeshhpandey@gmail.com'];
+      const allowedEmails = ['answercannon@gmail.com', 'rrakeshhpandey@gmail.com', 'maitysabuj939@gmail.com'];
       if (user.email && allowedEmails.includes(user.email)) {
         return true;
       }

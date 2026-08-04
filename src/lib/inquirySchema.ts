@@ -10,19 +10,6 @@ export const inquirySchema = z.object({
   workEmail: z.string().trim().email('Please enter a valid work email').max(160),
   phone: z.string().trim().min(5, 'Please enter a valid phone number').max(40),
   nationality: z.string().trim().min(2, 'Please enter your nationality').max(120),
-  occupation: z.string().trim().min(2, 'Please enter your occupation').max(120),
-  unitType: z.enum([
-    '4BR TH (mid): from 4,200,000 AED',
-    '5BR TH (end/corn): from 5,100,000 AED',
-    '5BR TH (grand): from 6,250,000 AED',
-    '6BR Villa (twin): from 6,900,000 AED',
-    '6BR Villa: from 16,000,000 AED',
-    '7BR Villa: from 49,000,000 AED',
-    'Mansion: for 150,000,000 AED'
-  ]),
-  purpose: z.enum(['Self use', 'Investment']),
-  timeline: z.enum(['Immediately', 'Less than 6 months']),
-  buyerType: z.enum(['Cash buyer', 'Mortgage buyer']),
   message: z.string().trim().min(2, 'Please add a short message').max(3000).optional().or(z.literal('')),
   subject: z.string().trim().max(200).optional().or(z.literal('')),
   /** Slug of the related project (when inquiry came from a listing detail page). */

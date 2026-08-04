@@ -19,11 +19,6 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
     workEmail: '',
     phone: '',
     nationality: '',
-    occupation: '',
-    unitType: '4BR TH (mid): from 4,200,000 AED',
-    purpose: 'Self use',
-    timeline: 'Immediately',
-    buyerType: 'Cash buyer',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
@@ -84,11 +79,6 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
         workEmail: '',
         phone: '',
         nationality: '',
-        occupation: '',
-        unitType: '4BR TH (mid): from 4,200,000 AED',
-        purpose: 'Self use',
-        timeline: 'Immediately',
-        buyerType: 'Cash buyer',
         message: ''
       });
       setTimeout(() => setSubmitted(false), 3000);
@@ -174,77 +164,6 @@ export function ContactPageClient({ locale }: { locale: Locale }) {
                   onChange={(val) => setForm({ ...form, nationality: val })}
                   variant="transparent"
                 />
-              </div>
-              <div>
-                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'المهنة' : 'Occupation'}</label>
-                <input
-                  type="text"
-                  required
-                  value={form.occupation}
-                  onChange={(e) => setForm({ ...form, occupation: e.target.value })}
-                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع الوحدة' : 'Unit Type'}</label>
-                <select
-                  value={form.unitType}
-                  onChange={(e) => setForm({ ...form, unitType: e.target.value })}
-                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                >
-                  <option value="4BR TH (mid): from 4,200,000 AED">4BR TH (mid): from 4,200,000 AED</option>
-                  <option value="5BR TH (end/corn): from 5,100,000 AED">5BR TH (end/corn): from 5,100,000 AED</option>
-                  <option value="5BR TH (grand): from 6,250,000 AED">5BR TH (grand): from 6,250,000 AED</option>
-                  <option value="6BR Villa (twin): from 6,900,000 AED">6BR Villa (twin): from 6,900,000 AED</option>
-                  <option value="6BR Villa: from 16,000,000 AED">6BR Villa: from 16,000,000 AED</option>
-                  <option value="7BR Villa: from 49,000,000 AED">7BR Villa: from 49,000,000 AED</option>
-                  <option value="Mansion: for 150,000,000 AED">Mansion: for 150,000,000 AED</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'الغرض' : 'Purpose'}</label>
-                <select
-                  value={form.purpose}
-                  onChange={(e) => setForm({ ...form, purpose: e.target.value })}
-                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                >
-                  <option value="Self use">Self use</option>
-                  <option value="Investment">Investment</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'متى ترغب في الشراء' : 'When wants to buy'}</label>
-                <select
-                  value={form.timeline}
-                  onChange={(e) => setForm({ ...form, timeline: e.target.value })}
-                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                >
-                  <option value="Immediately">Immediately</option>
-                  <option value="Less than 6 months">Less than 6 months</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="label text-fg-subtle mb-2 block">{locale === 'ar' ? 'نوع المشتري' : 'Buyer Type'}</label>
-                <select
-                  value={form.buyerType}
-                  onChange={(e) => setForm({ ...form, buyerType: e.target.value })}
-                  className="w-full bg-transparent border-b border-fg/15 py-3 text-fg focus:outline-none focus:border-gold transition-colors"
-                >
-                  <option value="Cash buyer">Cash buyer</option>
-                  <option value="Mortgage buyer">Mortgage buyer</option>
-                </select>
               </div>
             </div>
 

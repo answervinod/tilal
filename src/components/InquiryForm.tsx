@@ -35,11 +35,6 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
       workEmail: '',
       phone: '',
       nationality: '',
-      occupation: '',
-      unitType: '4BR TH (mid): from 4,200,000 AED',
-      purpose: 'Self use',
-      timeline: 'Immediately',
-      buyerType: 'Cash buyer',
       subject: defaultSubject || '',
       message: '',
       projectSlug: projectFromUrl,
@@ -74,11 +69,6 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
         workEmail: '',
         phone: '',
         nationality: '',
-        occupation: '',
-        unitType: '4BR TH (mid): from 4,200,000 AED',
-        purpose: 'Self use',
-        timeline: 'Immediately',
-        buyerType: 'Cash buyer',
         subject: defaultSubject || '',
         message: '',
         projectSlug: projectFromUrl,
@@ -202,64 +192,6 @@ export function InquiryForm({ locale, defaultSubject }: Props) {
             )}
           />
           {errors.nationality && <p className={errCls}>{errors.nationality.message}</p>}
-        </div>
-        <div>
-          <label className={labelCls} htmlFor="inq-occupation">
-            Occupation
-          </label>
-          <input
-            id="inq-occupation"
-            className={inputCls}
-            {...register('occupation')}
-          />
-          {errors.occupation && <p className={errCls}>{errors.occupation.message}</p>}
-        </div>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-5">
-        <div>
-          <label className={labelCls} htmlFor="inq-unitType">
-            Unit Type
-          </label>
-          <select id="inq-unitType" className={inputCls} {...register('unitType')}>
-            <option value="4BR TH (mid): from 4,200,000 AED">4BR TH (mid): from 4,200,000 AED</option>
-            <option value="5BR TH (end/corn): from 5,100,000 AED">5BR TH (end/corn): from 5,100,000 AED</option>
-            <option value="5BR TH (grand): from 6,250,000 AED">5BR TH (grand): from 6,250,000 AED</option>
-            <option value="6BR Villa (twin): from 6,900,000 AED">6BR Villa (twin): from 6,900,000 AED</option>
-            <option value="6BR Villa: from 16,000,000 AED">6BR Villa: from 16,000,000 AED</option>
-            <option value="7BR Villa: from 49,000,000 AED">7BR Villa: from 49,000,000 AED</option>
-            <option value="Mansion: for 150,000,000 AED">Mansion: for 150,000,000 AED</option>
-          </select>
-        </div>
-        <div>
-          <label className={labelCls} htmlFor="inq-purpose">
-            Purpose
-          </label>
-          <select id="inq-purpose" className={inputCls} {...register('purpose')}>
-            <option value="Self use">Self use</option>
-            <option value="Investment">Investment</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-5">
-        <div>
-          <label className={labelCls} htmlFor="inq-timeline">
-            When wants to buy
-          </label>
-          <select id="inq-timeline" className={inputCls} {...register('timeline')}>
-            <option value="Immediately">Immediately</option>
-            <option value="Less than 6 months">Less than 6 months</option>
-          </select>
-        </div>
-        <div>
-          <label className={labelCls} htmlFor="inq-buyerType">
-            Type Of Buyer
-          </label>
-          <select id="inq-buyerType" className={inputCls} {...register('buyerType')}>
-            <option value="Cash buyer">Cash buyer</option>
-            <option value="Mortgage buyer">Mortgage buyer</option>
-          </select>
         </div>
       </div>
 
